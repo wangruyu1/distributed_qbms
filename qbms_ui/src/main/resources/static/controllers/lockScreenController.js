@@ -12,11 +12,11 @@ angular.module("QBMS")
                 password: $scope.password
             }, {}, function (data) {
                 if (data.code == 401) {
-                    window.location.href = "/login.html";
+                    window.location.href = "/ui/login.html";
                 } else if (data.code == 402) {
                     toaster.pop("error", "密码错误");
                 } else {
-                    window.top.location.href = "/index.html";
+                    window.top.location.href = "/ui/index.html";
                 }
             })
         }

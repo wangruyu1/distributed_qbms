@@ -48,13 +48,15 @@ angular.module("QBMS")
         }
 
     })
-    .controller('modifyPasswordCtrl', function ($scope, toaster, $uibModalInstance,Service) {
+    .controller('modifyPasswordCtrl', function ($scope, toaster, $uibModalInstance, Service) {
         $scope.oldPsw = '';
         $scope.oldPswFlag = false;
         $scope.newPsw = '';
         $scope.reNewPsw = '';
+        $scope.finishOldPsw = false;
         $scope.checkOldPsw = function () {
-            Service.checkpassword.save({password: $scope.oldPsw}, function (data) {
+            $scope.finishOldPsw = true;
+            Service.checkpassword.save({password: $scope.oldPsw}, {}, function (data) {
                 if (data.result == true) {
                     $scope.oldPswFlag = true;
                 } else {
@@ -62,11 +64,14 @@ angular.module("QBMS")
                 }
             })
         }
+        $scope.wipeOffTip = function () {
+            $scope.finishOldPsw = false;
+        }
         $scope.cancel = function () {
             $uibModalInstance.dismiss();
         }
         $scope.ok = function () {
-            Service.modifyPassword.put({password: $scope.newPsw}, function (data) {
+            Service.modifyPassword.put({password: $scope.newPsw},{}, function (data) {
                 if (data.result == true) {
                     toaster.pop('success', data.message);
                     $scope.cancel();

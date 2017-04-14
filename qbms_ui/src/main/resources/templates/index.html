@@ -208,16 +208,17 @@
                 <div class="form-group">
                     <label for="oldPsw" class="col-sm-3 control-label">旧密码:</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="oldPsw"
+                        <input type="password" class="form-control" name="oldPsw" id="oldPsw"
                                required="required"
-                               placeholder="请输入原始密码" ng-model="oldPsw" ng-blur="checkOldPsw()"/>
+                               placeholder="请输入原始密码" ng-model="oldPsw" ng-blur="checkOldPsw()" ng-focus="wipeOffTip()" />
                     </div>
-                    <span class="required" ng-if="passwordForm.oldPsw.$dirty&amp;&amp;(oldPswFlag==false)">密码错误</span>
+                    <span class="required" ng-if="passwordForm.oldPsw.$dirty&amp;&amp;(oldPswFlag==false)&amp;&amp;finishOldPsw">密码错误</span>
+                    <span class="yes" ng-if="passwordForm.oldPsw.$dirty&amp;&amp;(oldPswFlag==true)&amp;&amp;finishOldPsw">密码正确</span>
                 </div>
                 <div class="form-group">
                     <label for="newPsw" class="col-sm-3 control-label">新密码:</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="newPsw"
+                        <input type="password" class="form-control" id="newPsw"
                                required="required"
                                placeholder="新密码" ng-model="newPsw"/>
                     </div>
@@ -227,7 +228,7 @@
                 <div class="form-group">
                     <label for="reNewPsw" class="col-sm-3 control-label">再次输入密码:</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="reNewPsw"
+                        <input type="password" class="form-control" name="reNewPsw" id="reNewPsw"
                                required="required"
                                placeholder="确认密码" ng-model="reNewPsw"/>
                     </div>
@@ -236,7 +237,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal" ng-click="cancel()">取消</button>
-            <button type="button" class="btn btn-primary" ng-click="ok()">确定</button>
+            <button type="button" class="btn btn-primary" ng-click="ok()" ng-disabled="passwordForm.$invalid||oldPswFlag==false||newPsw!=reNewPsw">确定</button>
         </div>
     </div>
 </script>

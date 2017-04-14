@@ -43,8 +43,8 @@ angular.module("QBMS.services", ['ngResource'])
             user: $resource(pc + "/user", {}, {}),
             username: $resource(pc + "/user/:id/username", {}, {}),
             checkpassword: $resource(pc + "/user/password", {}, {}),
-            logout: $resource(pc + "user/logout", {}, {}),
-            modifyPassword: $resource(pc + "user", {}, {put: {method: 'PUT'}}),
+            logout: $resource(pc + "/user/logout", {}, {}),
+            modifyPassword: $resource(pc + "/user", {}, {put: {method: 'PUT'}}),
 
             //试卷分类
             paperCategory: $resource(manager + "/paper/category/:id", {}, {modify: {method: "PUT", isArray: false}}),

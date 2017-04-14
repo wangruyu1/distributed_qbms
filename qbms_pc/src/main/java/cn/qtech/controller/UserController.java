@@ -33,9 +33,9 @@ public class UserController {
     public BaseMessage modifyPassword(@RequestParam("password") String password) {
         User user = LoginUtil.getLoginUser();
         if (userService.modifyPassword(user.getName(), password)) {
-            return new BaseMessage(200, true, "user.password.modify.success");
+            return new BaseMessage(200, true, localMessageSource.getMessage("user.password.modify.success"));
         }
-        return new BaseMessage(201, false, "user.password.modify.failed");
+        return new BaseMessage(201, false, localMessageSource.getMessage("user.password.modify.failed"));
     }
 
     @RequestMapping(value = "user/password", method = RequestMethod.POST)
