@@ -1,0 +1,242 @@
+<html lang="en" ng-app="QBMS">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>题库管理系统</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/adminlte/font-awesome.min.css"/>
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="/css/adminlte/ionicons.min.css"/>
+    <!--<link rel="stylesheet" href="/css/adminlte/jquery-jvectormap-1.2.2.css"/>-->
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/css/adminlte/AdminLTE.min.css"/>
+    <!--&lt;!&ndash; AdminLTE Skins. Choose a skin from the css/skins-->
+    <!--folder instead of downloading all of them to reduce the load. &ndash;&gt;-->
+    <!--<link rel="stylesheet" href="/css/adminlte/_all-skins.min.css"/>-->
+    <!-- iCheck -->
+    <!--<link rel="stylesheet" href="/css/adminlte/blue.css"/>-->
+    <link rel="stylesheet" href="/css/adminlte/_all-skins.min.css"/>
+    <link rel="stylesheet" href="/css/adminlte/blue.css"/>
+    <link rel="stylesheet" href="/css/adminlte/morris.css"/>
+    <link rel="stylesheet" href="/css/adminlte/jquery-jvectormap-1.2.2.css"/>
+    <link rel="stylesheet" href="/css/adminlte/datepicker3.css"/>
+    <link rel="stylesheet" href="/css/adminlte/daterangepicker.css"/>
+    <link rel="stylesheet" href="/css/adminlte/bootstrap3-wysihtml5.min.css"/>
+    <link rel="stylesheet" href="/css/toaster.min.css"/>
+    <link rel="stylesheet" href="/css/ag-grid/ag-grid.css"/>
+    <link rel="stylesheet" href="/css/my.css"/>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+    <script src="/js/angular.js"></script>
+    <script src="/js/angular-resource.min.js"></script>
+    <script src="/js/angular-ui-router.js"></script>
+    <script src="/js/angular-animate.min.js"></script>
+    <script src="/js/angular-touch.min.js"></script>
+    <script src="/js/jquery-2.2.3.min.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/toaster.min.js"></script>
+    <!--ag-grid-->
+    <script src="/js/ag-grid.js"></script>
+    <script src="/js/ui-bootstrap-tpls-2.5.0.min.js"></script>
+    <script src="/router.js"></script>
+    <script src="/service.js"></script>
+    <script src="/directive/directive.js"></script>
+    <script src="/filter/filter.js"></script>
+    <script src="/app.js"></script>
+    <script src="/controllers/categoryController.js"></script>
+    <script src="/controllers/subjectDifficulty.js"></script>
+    <script src="/controllers/overviewController.js"></script>
+    <script src="/controllers/subjectCategoryController.js"></script>
+    <script src="/controllers/subjectController.js"></script>
+    <script src="/controllers/paperController.js"></script>
+    <script src="/controllers/addPaperManualController.js"></script>
+    <script src="/controllers/addPaperAutomaticController.js"></script>
+    <script src="/controllers/demo/demoController.js"></script>
+    <script src="/controllers/lockScreenController.js"></script>
+    <script src="/indexController.js"></script>
+</head>
+<body class="hold-transition skin-green sidebar-mini" ng-controller="IndexController">
+<div class="wrapper">
+    <toaster-container></toaster-container>
+    <header class="main-header">
+        <!-- Logo -->
+        <a href="index.html" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <!--<span class="logo-mini"><b>A</b>LT</span>-->
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg">题库管理</span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle fa-align-justify" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- Messages: style can be found in dropdown.less-->
+                    <li class="dropdown messages-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-envelope-o"></i>
+                            <span class="label label-success">4</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">你有4条信息</li>
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <li><!-- start message -->
+                                        <a href="#">
+                                            <!--<div class="pull-left">-->
+                                            <!--<img src="dist/img/user2-160x160.jpg" class="img-circle"-->
+                                            <!--alt="User Image"/>-->
+                                            <!--</div>-->
+                                            <h4>
+                                                message
+                                                <small><i class="fa fa-clock-o"></i>即将开始</small>
+                                            </h4>
+                                            <p>message tip</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="footer"><a href="#">查看所有消息</a></li>
+                        </ul>
+                    </li>
+                    <!-- Notifications: style can be found in dropdown.less -->
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="/img/admin.jpg" class="user-image" alt="{{user.displayname}}"/>
+                            <span class="hidden-xs">{{user.displayName}}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header">
+                                <img src="/img/admin.jpg" class="img-circle" alt="{{user.displayname}}"/>
+                                <p>
+                                    用户信息
+                                    <small>爱好:跑步,骑车</small>
+                                </p>
+                            </li>
+                            <!-- Menu Body -->
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="javascript:void(0);" class="btn btn-default btn-flat"
+                                       ng-click="modifyPassword()">修改密码</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="/logout" class="btn btn-default btn-flat">注销</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar" style="background-color: #0c0c0c">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar user panel -->
+            <ul class="sidebar-menu">
+                <li class="header">题库管理</li>
+                <li ng-repeat="menu in menus">
+                    <a href="#">
+                        <i class="{{menu.icon}}"></i> <span ng-bind="menu.name"></span>
+                        <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu" style="background-color: #0c0c0c">
+                        <li ng-repeat="subMenu in menu.subMenus"><a ui-sref="{{subMenu.router}}"><i
+                                class="{{subMenu.icon}}"></i>{{subMenu.name}}</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" ng-click="lockScreen()">
+                        <i class="fa fa-lock"></i> <span>锁定屏幕</span></a>
+                </li>
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <!--<h1>-->
+            <!--Dashboard-->
+            <!--<small>Control panel</small>-->
+            <!--</h1>-->
+            <!--<ol class="breadcrumb" style="float: left;left:10px;">-->
+            <!--<li><a ui-sref="/index"><i class="fa fa-dashboard"></i> 主页</a></li>-->
+            <!--<li class="active">概览</li>-->
+            <!--</ol>-->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <ui-view></ui-view>
+
+            <!-- Small boxes (Stat box) -->
+        </section>
+    </div>
+</div>
+<script src="/js/app.min.js"></script>
+</body>
+</html>
+<script type="text/ng-template" id="modifyPassword.html">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                <span aria-hidden="true">×</span></button>
+            <h4 class="modal-title">修改密码</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal" name="passwordForm">
+                <div class="form-group">
+                    <label for="oldPsw" class="col-sm-3 control-label">旧密码:</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="oldPsw"
+                               required="required"
+                               placeholder="请输入原始密码" ng-model="oldPsw" ng-blur="checkOldPsw()"/>
+                    </div>
+                    <span class="required" ng-if="passwordForm.oldPsw.$dirty&amp;&amp;(oldPswFlag==false)">密码错误</span>
+                </div>
+                <div class="form-group">
+                    <label for="newPsw" class="col-sm-3 control-label">新密码:</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="newPsw"
+                               required="required"
+                               placeholder="新密码" ng-model="newPsw"/>
+                    </div>
+                    <span class="required"
+                          ng-if="passwordForm.reNewPsw.$dirty&amp;&amp;(newPsw!=reNewPsw)">两次输入的密码不一致</span>
+                </div>
+                <div class="form-group">
+                    <label for="reNewPsw" class="col-sm-3 control-label">再次输入密码:</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="reNewPsw"
+                               required="required"
+                               placeholder="确认密码" ng-model="reNewPsw"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal" ng-click="cancel()">取消</button>
+            <button type="button" class="btn btn-primary" ng-click="ok()">确定</button>
+        </div>
+    </div>
+</script>

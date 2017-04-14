@@ -1,0 +1,56 @@
+server:
+  port: 8084
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8081/eureka/
+
+spring:
+  application:
+    name: qbms-manager
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/qbms?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: wangruyu
+#redis
+  redis:
+    host: localhost
+    port: 6379
+    password:
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+feign:
+  hystrix:
+    enabled: true
+hystrix:
+  shareSecurityContext: true
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+        isolation:
+          strategy: SEMAPHORE
+          thread:
+            timeoutInMilliseconds: 60000
+#mybatis
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+
+#encoding
+web:
+  encoding: UTF-8
+
+#logging
+logging:
+  level:
+    cn.qtech.mapper: DEBUG
+security:
+  sessions: never

@@ -1,0 +1,341 @@
+<div ng-view>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12" style="padding-bottom: 200px;">
+                <div class="box box-primary">
+                    <div class="box-body box-profile">
+                        <!--<section class="content-header">-->
+                        <div class="row">
+                            <div class="col-md-3"><h3>试题管理</h3></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="box box-solid">
+                                    <div class="box-header with-border">
+                                        <button class="btn btn-app" ng-click="addSubject()">
+                                            <i class="fa fa-plus-circle"></i>添加
+                                        </button>
+                                        <button class="btn btn-app"
+                                                ng-disabled="selectedRow==undefined"
+                                                ng-click="modifySubject()">
+                                            <i class="fa fa-edit"></i> 修改
+                                        </button>
+                                        <button class="btn btn-app"
+                                                ng-disabled="selectedRow==undefined"
+                                                ng-click="deleteSubject()">
+                                            <i class="fa  fa-remove"></i> 删除
+                                        </button>
+                                        <button class="btn btn-app"
+                                                ng-disabled="selectedRow==undefined"
+                                                ng-click="getDetail()">
+                                            <i class="fa fa-comment-o"></i> 试题内容
+                                        </button>
+                                    </div><!-- /.box-header -->
+                                    <div class="box-body">
+                                        <div id="subjectGrid" ag-grid="gridOptions" class="ag-blue"
+                                             style="width:100%;height: auto"></div>
+                                    </div><!-- /.box -->
+                                </div>
+
+                            </div><!-- /.row -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- Add the sidebar's background. This div must be placed
+     immediately after the control sidebar -->
+<div class="control-sidebar-bg"></div>
+
+<script type="text/ng-template" id="addSubject.html">
+    <div class="box box-primary">
+        <div class="box-body box-profile modal-success">
+            <button class="close" ng-click="cancel()"><span class="white">&times;</span></button>
+            <section class="content">
+                <div class="row">
+                    <div class="col-md-3"><h3>题目管理</h3></div>
+                </div>
+
+                <div class="row">
+                    <!-- /.col -->
+                    <div class="col-md-12">
+                        <div class="nav-tabs-custom">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#addBaseInfo" data-toggle="tab">基本信息</a></li>
+                                <li><a href="#addContent" data-toggle="tab">题目内容</a></li>
+                                <li><a href="#addAnswer" data-toggle="tab">题目答案</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="addBaseInfo">
+
+                                    <div class="box box-info">
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title">基本信息设置</h3>
+                                        </div>
+                                        <!-- /.box-header -->
+                                        <!-- form start -->
+                                        <form class="form-horizontal" name="basicForm">
+                                            <div class="box-body">
+                                                <div class="row">
+                                                    <div class="form-group col-md-6">
+                                                        <label>题目名称
+                                                            <span class="required text-red">*</span>
+                                                        </label>
+                                                        <input type="text" name="name" ng-model="subject.name"
+                                                               required="required"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-md-6">
+                                                        <label>题目分类
+                                                            <span class="required text-red">*</span></label>
+                                                        <select class="form-control" name="category" id="category"
+                                                                ng-options="c as c.name for c in categories track by c.subjectCategoryId"
+                                                                ng-model="category"
+                                                                required="required">
+                                                            <option value="">请选择</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-md-6">
+                                                        <label>题目难度等级
+                                                            <span class="required text-red">*</span></label>
+                                                        <select class="form-control"
+                                                                ng-options="d as d.name for d in difficulties track by d.subjectId"
+                                                                ng-model="difficulty"
+                                                                required="required">
+                                                            <option value="">请选择</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /.box-body -->
+                                            <div class="box-footer">
+                                            </div>
+                                            <!-- /.box-footer -->
+                                        </form>
+                                    </div>
+
+                                </div>
+                                <!-- Post -->
+                                <div class="tab-pane" id="addContent">
+                                    <div class="form-group">
+                                        <label>试题内容</label>
+                                        <textarea class="form-control" rows="20" placeholder="请输入试题内容" name="content"
+                                                  ng-model="subject.content"></textarea>
+                                    </div>
+                                </div>
+                                <!-- /.tab-pane -->
+                                <div class="tab-pane" id="addAnswer">
+                                    <div class="form-group">
+                                        <label>试题答案</label>
+                                        <textarea class="form-control" rows="20" placeholder="请输入试题答案" name="answer"
+                                                  ng-model="subject.answer"></textarea>
+                                    </div>
+                                    <div class="box-footer">
+                                        <button ng-click="ok()"
+                                                class="btn btn-info pull-right"
+                                                ng-disabled="basicForm.$invalid">确定
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- /.tab-pane -->
+                                <!-- /.tab-content -->
+                            </div>
+                            <!-- /.nav-tabs-custom -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+            </section>
+        </div>
+    </div>
+</script>
+<script type="text/ng-template" id="modifySubject.html">
+    <div class="box box-primary">
+        <div class="box-body box-profile modal-success">
+            <button class="close" ng-click="cancel()"><span class="white">&times;</span></button>
+            <section class="content">
+                <div class="row">
+                    <div class="col-md-3"><h3>题目管理</h3></div>
+                </div>
+
+                <div class="row">
+                    <!-- /.col -->
+                    <div class="col-md-12">
+                        <div class="nav-tabs-custom">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#addBaseInfo" data-toggle="tab">基本信息</a></li>
+                                <li><a href="#addContent" data-toggle="tab">题目内容</a></li>
+                                <li><a href="#addAnswer" data-toggle="tab">题目答案</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="addBaseInfo">
+
+                                    <div class="box box-info">
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title">基本信息设置</h3>
+                                        </div>
+                                        <!-- /.box-header -->
+                                        <!-- form start -->
+                                        <form class="form-horizontal">
+                                            <div class="box-body">
+                                                <div class="row">
+                                                    <div class="form-group col-md-6">
+                                                        <label>题目名称
+                                                            <span class="required text-red">*</span>
+                                                        </label>
+                                                        <input type="text" name="name" ng-model="subject.name"
+                                                               required
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-md-6">
+                                                        <label>题目分类
+                                                            <span class="required text-red">*</span></label>
+                                                        <select class="form-control" name="category" id="category"
+                                                                ng-options="c as c.name for c in categories track by c.subjectCategoryId"
+                                                                ng-model="category"
+                                                                required="required">
+                                                            <option value=""></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-md-6">
+                                                        <label>题目难度等级
+                                                            <span class="required text-red">*</span></label>
+                                                        <select class="form-control"
+                                                                ng-options="d as d.name for d in difficulties track by d.subjectId"
+                                                                ng-model="difficulty"
+                                                                required="required">
+                                                            <option value=""></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="box-footer">
+                                                    <button ng-click="basic_ok()"
+                                                            class="btn btn-info pull-right"
+                                                            ng-disabled="category.$invalid || category.$pristine">确定
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <!-- /.box-body -->
+                                        </form>
+                                    </div>
+
+                                </div>
+                                <!-- Post -->
+                                <div class="tab-pane" id="addContent">
+                                    <div class="form-group">
+                                        <label>试题内容</label>
+                                        <textarea class="form-control" rows="20" placeholder="请输入试题内容"
+                                                  ng-model="subject.content"></textarea>
+                                    </div>
+                                    <div class="box-footer">
+                                        <button ng-click="content_ok()"
+                                                class="btn btn-info pull-right"
+                                                ng-disabled="category.$invalid || category.$pristine">确定
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- /.tab-pane -->
+                                <div class="tab-pane" id="addAnswer">
+                                    <div class="form-group">
+                                        <label>试题答案</label>
+                                        <textarea class="form-control" rows="20" placeholder="请输入试题答案"
+                                                  ng-model="subject.answer"></textarea>
+                                    </div>
+                                    <div class="box-footer">
+                                        <button ng-click="answer_ok()"
+                                                class="btn btn-info pull-right"
+                                                ng-disabled="category.$invalid || category.$pristine">确定
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- /.tab-pane -->
+                                <!-- /.tab-content -->
+                            </div>
+                            <!-- /.nav-tabs-custom -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+            </section>
+        </div>
+    </div>
+</script>
+<script type="text/ng-template" id="deleteSubject.html">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                <span aria-hidden="true">×</span></button>
+            <h4 class="modal-title">删除试题</h4>
+        </div>
+        <div class="modal-body">
+            <div class="warn">确定要删除试题<span class="required">{{subject.name}}</span>?</div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
+            <button type="button" class="btn btn-primary" ng-click="ok()">确定</button>
+        </div>
+    </div>
+</script>
+<script type="text/ng-template" id="subjectDetail.html">
+    <div class="modal-content" draggable="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                <span aria-hidden="true">×</span></button>
+            <h4 class="modal-title">试题详情</h4>
+        </div>
+        <div class="modal-body">
+            <div class="panel-group" id="according" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-info">
+                    <div class="panel-heading" role="tab" id="content">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" href="#collapseOne"
+                               aria-expanded="true" aria-controls="collapseOne">
+                                试题内容
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
+                         aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            <textarea class="form-control" rows="8">{{subject.content}}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-success">
+                    <div class="panel-heading" role="tab" id="answer">
+                        <h4 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse"
+                               href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                试题答案
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="answer">
+                        <div class="panel-body">
+                            <textarea class="form-control" rows="6">{{subject.answer}}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            tip:不可修改,修改需要在修改菜单才行.
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal" ng-click="cancel()">取消</button>
+            <button type="button" class="btn btn-primary" ng-click="ok()">确定</button>
+        </div>
+    </div>
+</script>

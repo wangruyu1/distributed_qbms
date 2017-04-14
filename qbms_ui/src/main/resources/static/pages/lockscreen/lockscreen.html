@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html ng-app="QBMS">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>题库管理系统</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/adminlte/font-awesome.min.css"/>
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="/css/adminlte/ionicons.min.css"/>
+    <link rel="stylesheet" href="/css/adminlte/AdminLTE.min.css"/>
+    <link rel="stylesheet" href="/css/toaster.min.css"/>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]-->
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <script src="/js/angular.js"></script>
+    <script src="/js/angular-resource.min.js"></script>
+    <script src="/js/angular-ui-router.js"></script>
+    <script src="/js/angular-animate.min.js"></script>
+    <script src="/js/angular-touch.min.js"></script>
+    <script src="/js/jquery-2.2.3.min.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/toaster.min.js"></script>
+    <!--ag-grid-->
+    <script src="/js/ag-grid.js"></script>
+    <script src="/js/ui-bootstrap-tpls-2.5.0.min.js"></script>
+    <script src="/app.js"></script>
+    <script src="/router.js"></script>
+    <script src="/service.js"></script>
+    <script src="/directive/directive.js"></script>
+    <script src="/filter/filter.js"></script>
+    <script src="/controllers/categoryController.js"></script>
+    <script src="/controllers/subjectDifficulty.js"></script>
+    <script src="/controllers/overviewController.js"></script>
+    <script src="/controllers/subjectCategoryController.js"></script>
+    <script src="/controllers/subjectController.js"></script>
+    <script src="/controllers/paperController.js"></script>
+    <script src="/controllers/addPaperManualController.js"></script>
+    <script src="/controllers/demo/demoController.js"></script>
+    <script src="/indexController.js"></script>
+    <script src="/js/app.min.js"></script>
+    <!--<script src="/js/angular-touch.min.js"></script>-->
+    <script src="/controllers/lockScreenController.js"></script>
+</head>
+<body class="hold-transition lockscreen" style="background-color:#2f905d;" ng-controller="LockScreenController"
+      ng-controller="LockScreenController">
+<!-- Automatic element centering -->
+</head>
+<div class="lockscreen-wrapper" >
+    <toaster-container></toaster-container>
+    <div class="lockscreen-logo">
+        <a href="../../index2.html"><b>题库管理系统</b></a>
+    </div>
+    <!-- User name -->
+    <div class="lockscreen-name" style="color:#333;" ng-bind="user.name"></div>
+
+    <!-- START LOCK SCREEN ITEM -->
+    <div class="lockscreen-item">
+        <!-- lockscreen image -->
+        <div class="lockscreen-image">
+            <img src="/img/admin.jpg" alt="User Image">
+        </div>
+        <!-- /.lockscreen-image -->
+
+        <!-- lockscreen credentials (contains the form) -->
+        <form class="lockscreen-credentials">
+            <div class="input-group">
+                <input type="password" class="form-control" placeholder="password" ng-model="password">
+                <div class="input-group-btn">
+                    <button type="button" class="btn" ng-click="ok()"><i class="fa fa-arrow-right text-muted"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+        <!-- /.lockscreen credentials -->
+
+    </div>
+    <!-- /.lockscreen-item -->
+    <div class="help-block text-center" style="color:#333;">
+        输入密码验证密码
+    </div>
+    <div class="text-center" style="color:#333;">或者重新
+        <a href="login.html">登录</a>
+    </div>
+    <div class="lockscreen-footer text-center">
+        Copyright &copy; 2014-2016 <b><a href="http://almsaeedstudio.com" class="text-black">Almsaeed Studio</a></b><br>
+        All rights reserved
+    </div>
+</div>
+<!-- /.center -->
+</body>
+</html>

@@ -1,0 +1,226 @@
+<div ng-view>
+    <section class="content" style="border:#5b9bd5 3px solid;margin-top: 15px;margin-bottom: 0px;">
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs" style="background-color: #d9edf7">
+                <li class="active"><a href="#basicInfo" data-toggle="tab" aria-expanded="true">试卷基本信息</a></li>
+                <li class=""><a href="#content" data-toggle="tab" aria-expanded="false">试卷详情</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="basicInfo">
+                    <form class="form-horizontal" name="baseForm">
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">名称:</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="name"
+                                       placeholder="试卷名称" ng-model="paper.name" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="title" class="col-sm-2 control-label">标题:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="title"
+                                       placeholder="年级:  班级:  " ng-model="paper.title" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="difficulty" class="col-sm-2 control-label">试卷难度</label>
+                            <div class="col-sm-4">
+                                <select id="difficulty" class="form-control" ng-model="paper.paperDifficultyId" required>
+                                    <option value="">请选择</option>
+                                    <option value="{{d.subjectId}}" ng-repeat="d in difficulties">
+                                        {{d.name}}
+                                    </option>
+                                </select>
+                            </div>
+                            <label for="category" class="col-sm-2 control-label">试卷分类:</label>
+                            <div class="col-sm-4">
+                                <select id="paperCategory" class="form-control"
+                                        ng-model="paper.paperCategoryId" required>
+                                    <option value="">请选择</option>
+                                    <option value="{{c.categoryId}}" ng-repeat="c in paperCategories">
+                                        {{c.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="user" class="col-sm-2 control-label">出题人:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="user"
+                                       placeholder="创建试卷者" ng-model="paper.userName" disabled="disabled" required>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-info pull-right"
+                                    ng-click="finishedPaperBaseInfo()" ng-disabled="baseForm.$invalid">确定
+                            </button>
+                        </div>
+                        <!-- /.box-footer -->
+                    </form>
+                </div>
+                <div class="tab-pane" id="content">
+                    <div class="panel panel-info">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse"
+                                   href="#subjectBaseInfo" aria-expanded="false"
+                                   aria-controls="subjectBaseInfo">
+                                    试题基本信息
+                                </a>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <a href="javascript:void(0);" ng-click="doNextSubject()">下一大题</a>
+                                <span class="pull-right">当前试题:第<i class="required">{{currentBigSubject}}</i>大题</span>
+                            </h4>
+                        </div>
+                        <div id="subjectBaseInfo" class="panel-collapse collapse in" role="tabpanel"
+                             aria-labelledby="headingOne">
+                            <div class="panel-body">
+                                <form class="form-horizontal" name="subjectForm">
+                                    <div class="form-group">
+                                        <label for="category" class="col-sm-2 control-label">分类:</label>
+                                        <div class="col-sm-4">
+                                            <select ng-model="subject.categoryId" id="category" required
+                                                    class="form-control">
+                                                <option value="">请选择</option>
+                                                <option value="{{c.subjectCategoryId}}"
+                                                        ng-repeat="c in categories">{{c.name}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <label for="difficulty" class="col-sm-2 control-label">困难度:</label>
+                                        <div class="col-sm-4">
+                                            <select ng-model="subject.difficultyId" class="form-control" required>
+                                                <option value="">请选择</option>
+                                                <option value="{{d.subjectId}}"
+                                                        ng-repeat="d in difficulties">{{d.name}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="score" class="col-sm-2 control-label">分值:</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" id="score"
+                                                   placeholder="每题分数" ng-model="subject.score" required>
+                                        </div>
+                                        <label for="user" class="col-sm-2 control-label">出题人:</label>
+                                        <div class="col-sm-4">
+                                            <select type="text" class="form-control"
+                                                    placeholder="创建题目者" ng-model="subject.userId"
+                                                    disabled="disabled" required>
+                                                <option value="{{subject.userId}}">{{subject.userName}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="littleSubjectNum" class="col-sm-2 control-label">题目数量</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" id="littleSubjectNum"
+                                                   placeholder="设置大题包含的题目数量" ng-model="subject.littleSubjectNum">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- /.tab-content -->
+                    </div>
+                    <div class="panel panel-info">
+                        <div class="panel-heading" role="tab" id="headingTwo">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse"
+                                   href="#subjectContent" aria-expanded="false" aria-controls="subjectContent">
+                                    试题内容
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="subjectContent" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                     <textarea class="form-control" rows="10"
+                                               placeholder="tip1:请输入试题内容,每次完成一个小题请点击确定按钮...
+tip2:每题分数要在点击下一大题时才生效
+tip3:每道大题得分只有添加第一题时有效(因为每道大题的小题分数应当一致)"
+                                               ng-model="subject.content"></textarea>
+                            </div>
+                        </div>
+                        <!-- /.tab-content -->
+                    </div>
+                    <div class="panel panel-info">
+                        <div class="panel-heading" role="tab" id="headingThree">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse"
+                                   href="#subjectAnswer" aria-expanded="false" aria-controls="subjectAnswer">
+                                    试题答案
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="subjectAnswer" class="panel-collapse collapse" role="tabpanel"
+                             aria-labelledby="headingThree">
+                            <div class="panel-body">
+                                        <textarea class="form-control" rows="10" placeholder="请输入试题答案"
+                                                  ng-model="subject.answer"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-info pull-right"
+                                ng-click="addSubject()" >确定
+                        </button>
+                    </div>
+                    <!-- /.tab-content -->
+                </div>
+            </div>
+        </div>
+</section>
+</div>
+<script type="text/ng-template" id="subjectDetail.html">
+    <div class="modal-content" draggable="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                <span aria-hidden="true">×</span></button>
+            <h4 class="modal-title">试题详情</h4>
+        </div>
+        <div class="modal-body">
+            <div class="panel-group" id="according" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-info">
+                    <div class="panel-heading" role="tab" id="content">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" href="#collapseOne"
+                               aria-expanded="true" aria-controls="collapseOne">
+                                试题内容
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
+                         aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            <pre>
+                                <br/>{{subject.content.trim()}}
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-success">
+                    <div class="panel-heading" role="tab" id="answer">
+                        <h4 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse"
+                               href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                试题答案
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="answer">
+                        <div class="panel-body">
+                            <pre>{{subject.answer.trim()}}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            tip:不可修改,修改需要在修改菜单才行.
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal" ng-click="cancel()">取消</button>
+            <button type="button" class="btn btn-primary" ng-click="ok()">确定</button>
+        </div>
+    </div>
+</script>

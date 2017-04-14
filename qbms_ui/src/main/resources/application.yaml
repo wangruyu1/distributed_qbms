@@ -1,0 +1,66 @@
+server:
+  port: 8080
+#服务注册
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8081/eureka/
+
+#服务网关
+zuul:
+  routes:
+    pc_url:
+      path: /pc/**
+      serviceId: qbms-pc
+      sensitiveHeaders:
+    ui_url:
+      path: /ui/**
+      serviceId: qbms-ui
+      sensitiveHeaders:
+    manager_url:
+      path: /manager/**
+      serviceId: qbms-manager
+      sensitiveHeaders:
+feign:
+  hystrix:
+    enabled: true
+ribbon:
+  eureka:
+    enabled: true
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+#  eureka:
+#    enabled: true #配置zuul路由时用将此属性设置为false
+hystrix:
+#  shareSecurityContext: true
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+          thread:
+            timeoutInMilliseconds: 60000
+
+spring:
+  application:
+    name: qbms-ui
+#redis
+  redis:
+    host: localhost
+    port: 6379
+    password:
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+
+security:
+  sessions: never
+
+#encoding
+web:
+  encoding: UTF-8
+
+#logging
+logging:
+  level:
+    cn.qtech.mapper: DEBUG

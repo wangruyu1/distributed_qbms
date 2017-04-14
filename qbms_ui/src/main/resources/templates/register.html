@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html ng-app="QBMS.register">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>欢迎注册</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css"/>
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/css/adminlte/AdminLTE.min.css"/>
+    <link rel="stylesheet" href="/css/toaster.min.css"/>
+
+    <script src="/js/angular.js"></script>
+    <script src="/js/angular-resource.min.js"></script>
+    <script src="/js/angular-animate.min.js"></script>
+    <script src="/js/toaster.min.js"></script>
+    <!-- jQuery 2.2.3 -->
+    <script src="/js/jquery-2.2.3.min.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="/js/bootstrap.js"></script>
+
+</head>
+<body class="hold-transition login-page" ng-controller="RegisterController">
+<div class="login-box">
+    <div class="login-logo">
+        <a href="/login">题库管理系统</a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+        <p class="login-box-msg">请登录使用</p>
+        <toaster-container></toaster-container>
+
+        <form name="loginForm">
+            <div class="form-group has-feedback">
+                <input type="text" class="form-control" ng-model="user.username" placeholder="用户名"/>
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" class="form-control" ng-model="user.password" placeholder="密码"/>
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <div class="row">
+                <div class="col-xs-8">
+                    <div class="checkbox icheck">
+                        <label>
+                            <input type="checkbox"/> 记住我
+                        </label>
+                    </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-xs-4">
+                    <button class="btn btn-primary btn-block btn-flat" ng-click="login()">登录</button>
+                </div>
+                <!-- /.col -->
+            </div>
+        </form>
+
+        <a href="#">忘记密码</a>
+        <br/>
+        <a href="register.html" class="text-center">注册账号</a>
+
+    </div>
+    <!-- /.login-box-body -->
+</div>
+<!-- /.login-box -->
+
+</body>
+</html>

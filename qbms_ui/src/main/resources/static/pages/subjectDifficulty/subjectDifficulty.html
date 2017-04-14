@@ -1,0 +1,114 @@
+<div ng-view>
+    <section class="content-header">
+        <h3 class="no-margin">试题难度等级</h3>
+    </section>
+
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-solid">
+                    <div class="box-header with-border">
+                        <button class="btn btn-app" ng-click="addSubjectDifficulty()">
+                            <i class="fa fa-plus-circle"></i>添加
+                        </button>
+                        <button class="btn btn-app"
+                                ng-disabled="selectedRow==undefined"
+                                ng-click="modifySubjectDifficulty()">
+                            <i class="fa fa-edit"></i> 修改
+                        </button>
+                        <button class="btn btn-app"
+                                ng-disabled="selectedRow==undefined"
+                                ng-click="deleteSubjectDifficulty()">
+                            <i class="fa  fa-remove"></i> 删除
+                        </button>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div ag-grid="gridOptions" class="ag-blue" style="height: 100%;"></div>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div>
+
+        </div><!-- /.row -->
+        <!-- Main row -->
+
+    </section><!-- /.content -->
+</div>
+<script type="text/ng-template" id="addSubjectDifficulty.html">
+    <div class="modal-header">
+        <button class="close" ng-click="cancel()"><span class="white">&times;</span></button>
+        <h3 class="modal-title" id="modal-title">添加试题等级</h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <form class="form-horizontal" role="form" name="addform">
+            <div class="form-group">
+                <label class="col-md-3 control-label">名称
+                    <span class="required text-red">*</span>
+                </label>
+                <div class="col-md-7">
+                    <input type="text" name="name" ng-model="subjectDifficulty.name" required
+                           class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">描述
+                </label>
+                <div class="col-md-7">
+                    <textarea class="form-control" ng-model="subjectDifficulty.description"></textarea>
+                </div>
+            </div>
+        </form>
+        <div class="modal-footer">
+            <button class="btn btn-warning" type="button" ng-click="cancel()">取消</button>
+            <button class="btn btn-primary" type="button" ng-disabled="addform.$invalid" ng-click="ok()">确定
+            </button>
+        </div>
+        </form>
+    </div>
+</script>
+<script type="text/ng-template" id="modifySubjectDifficulty.html">
+    <div class="modal-header">
+        <button class="close" ng-click="cancel()"><span class="white">&times;</span></button>
+        <h3 class="modal-title" id="modal-title">修改试题等级</h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <form class="form-horizontal" role="form" name="addform">
+            <div class="form-group">
+                <label class="col-md-3 control-label">名称
+                    <span class="required">*</span>
+                </label>
+                <div class="col-md-7">
+                    <input type="text" name="name" ng-model="subjectDifficulty.name" required
+                           class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">描述
+                </label>
+                <div class="col-md-7">
+                    <textarea class="form-control" ng-model="subjectDifficulty.description"></textarea>
+                </div>
+            </div>
+        </form>
+        <div class="modal-footer">
+            <button class="btn btn-warning" type="button" ng-click="cancel()">取消</button>
+            <button class="btn btn-primary" type="button" ng-disabled="addform.$invalid" ng-click="ok()">确定
+            </button>
+        </div>
+        </form>
+    </div>
+</script>
+<script type="text/ng-template" id="deleteSubjectDifficulty.html">
+    <div class="modal-header">
+        <button class="close" ng-click="cancel()"><span class="white">&times;</span></button>
+        <h3 class="modal-title" id="modal-title">删除试题等级</h3>
+    </div>
+    <div class="modal-body warn">
+        确定删除试题等级<label class="required">{{subjectDifficulty.name}}</label>?
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" type="button" ng-click="cancel()">取消</button>
+        <button class="btn btn-primary" type="button" ng-click="ok()">确定
+        </button>
+    </div>
+</script>
