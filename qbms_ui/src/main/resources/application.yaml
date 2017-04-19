@@ -4,7 +4,8 @@ server:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8081/eureka/
+#      defaultZone: http://localhost:8081/eureka/
+      defaultZone: http://wangruyu:wangruyu@localhost:8081/eureka/
 
 #服务网关
 zuul:
@@ -29,8 +30,6 @@ ribbon:
     enabled: true
   ReadTimeout: 60000
   ConnectTimeout: 60000
-#  eureka:
-#    enabled: true #配置zuul路由时用将此属性设置为false
 hystrix:
 #  shareSecurityContext: true
   command:
@@ -44,6 +43,8 @@ hystrix:
 spring:
   application:
     name: qbms-ui
+  jmx:
+      default-domain: ${spring.application.name}
 #redis
   redis:
     host: localhost
@@ -52,6 +53,32 @@ spring:
   messages:
     basename: i18n/messages
     encoding: UTF-8
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: wangruyu
+    password: wangruyu
+    publisher-confirms: true
+    virtual-host: /
+    addresses: localhost:5672
+#  cloud:
+#    stream:
+#      bindings:
+#        output_channel:       #channelName
+#          destination: mydest #destination，或者可以认为是发布－订阅模型里面的topic
+#          binder: myRabbit
+#      binders:
+#        myRabbit:
+#          type: rabbit
+#          environment:
+#            spring:
+#              rabbitmq:
+#                host: localhost   #rabbitMQ服务器地址
+#                port: 5672          #rabbitMQ服务器端口
+#                username: wangruyu
+#                password: wangruyu
+#                virtual-host: /
+
 
 security:
   sessions: never

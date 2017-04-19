@@ -39,6 +39,7 @@ angular.module("QBMS.services", ['ngResource'])
         var pc = "/pc";
         var ui = "/ui";
         var manager = "/manager";
+        var user = "/user"
         var service = {
             user: $resource(pc + "/user", {}, {}),
             username: $resource(pc + "/user/:id/username", {}, {}),
@@ -74,6 +75,7 @@ angular.module("QBMS.services", ['ngResource'])
             papersByDifficulty: $resource(manager + "/papers/difficulty=:difficultyId", {}, {}),
             addContent: $resource(manager + "/paper/:id/subject", {}, {}),
             addPaperAutomatic: $resource(manager + "/paper/:id", {}, {}),
+            makePaper: $resource(manager + "/paper/:id/makepaper", {}, {}),
         };
         return service;
     })

@@ -4,8 +4,8 @@ server:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8081/eureka/
-
+#      defaultZone: http://localhost:8081/eureka/
+      defaultZone: http://wangruyu:wangruyu@localhost:8081/eureka/
 spring:
   application:
     name: qbms-pc
@@ -14,6 +14,26 @@ spring:
     url: jdbc:mysql://localhost:3306/qbms?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
     password: wangruyu
+  jmx:
+      default-domain: ${spring.application.name}
+
+#  cloud:
+#    stream:
+#      bindings:
+#        input_channel:       #channelName
+#          destination: mydest #destination，或者可以认为是发布－订阅模型里面的topic
+#          binder: myRabbit
+#      binders:
+#        myRabbit:
+#          type: rabbit
+#          environment:
+#            spring:
+#              rabbitmq:
+#                host: localhost   #rabbitMQ服务器地址
+#                port: 5672          #rabbitMQ服务器端口
+#                username: wangruyu
+#                password: wangruyu
+#                virtual-host: /
 #redis
   redis:
     host: localhost
@@ -36,6 +56,7 @@ hystrix:
           strategy: SEMAPHORE
           thread:
             timeoutInMilliseconds: 60000
+
 
 security:
   sessions: always

@@ -55,6 +55,16 @@ angular.module("QBMS.controllers")
                 }
             });
         }
+        //出题
+        $scope.makePaper = function () {
+            $uibModal.open({
+                templateUrl: 'makePaper.html',
+                controller: 'makePaperCtrl',
+                resolve: {
+                    selectedRow: $scope.selectedRow,
+                }
+            });
+        }
 
         function onSelectionChanged() {
             $scope.selectedRow = $scope.gridOptions.api.getSelectedRows()[0];
@@ -93,7 +103,7 @@ angular.module("QBMS.controllers")
             $uibModalInstance.dismiss();
         }
     })
-    .controller('deletePaperCtrl', function ($scope, toaster, $uibModalInstance, selectedRow,Service,$state) {
+    .controller('deletePaperCtrl', function ($scope, toaster, $uibModalInstance, selectedRow, Service, $state) {
         $scope.paper = selectedRow;
         $scope.cancel = function () {
             $uibModalInstance.dismiss();
@@ -108,5 +118,25 @@ angular.module("QBMS.controllers")
                     toaster.pop('error', data.message);
                 }
             });
+        }
+    })
+    .controller("makePaperCtrl", function ($scope, $uibModalInstance, toaster, Service, $document,selectedRow) {
+        $scope.paper = {
+            'startTime': '',
+            'paperId': selectedRow.paperId,
+            'totalTime': undefined,
+        };
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss();
+        }
+        $scope.ok = function () {
+            Service.makePaper.save({id:$scope.paper.paperId}, $scope.paper, function (data) {
+                if (data.result == true) {
+                    toaster.pop('success', data.message);
+                    $scope.cancel();
+                } else {
+                    toaster.pop('error', data.message);
+                }
+            })
         }
     })

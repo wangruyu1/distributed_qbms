@@ -31,5 +31,41 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
     </dependencies>
-
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.3.2</version>
+                <executions>
+                    <execution>
+                        <id>Generate MyBatis Artifacts</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <configurationFile>src/main/resources/generatorConfig.xml</configurationFile>
+                            <!--<jdbcDriver>com.mysql.jdbc.Driver</jdbcDriver>-->
+                            <!--<jdbcURL>jdbc:mysql://localhost:3306/qbms?useUnicode=true&amp;characterEncoding=utf8</jdbcURL>-->
+                            <!--<jdbcUserId>root</jdbcUserId>-->
+                            <!--<jdbcPassword>wangruyu</jdbcPassword>-->
+                            <overwrite>true</overwrite>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

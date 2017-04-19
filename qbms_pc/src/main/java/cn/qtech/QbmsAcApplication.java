@@ -13,6 +13,7 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 @SpringBootApplication
 @EnableFeignClients
 @EnableEurekaClient
+//@EnableBinding(Source.class)
 @MapperScan(value = "cn.qtech.mapper")
 public class QbmsAcApplication {
     public static void main(String[] args) {

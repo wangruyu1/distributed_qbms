@@ -37,6 +37,8 @@ public class PaperController {
     private SubjectDifficultyService subjectDifficultyService;
     @Autowired
     private UserClient userClient;
+    @Autowired
+    private MakePaperService makePaperService;
 
     @RequestMapping(value = "papers", method = RequestMethod.GET)
     public List<PaperDTO> queryAll() {
@@ -238,6 +240,18 @@ public class PaperController {
             return new BaseMessage(201, false, localMessageSource.getMessage("subject.add.failed"));
         }
         return new BaseMessage(200, true, localMessageSource.getMessage("subject.add.success"));
+    }
+
+    @RequestMapping("paper/{paperId}/makepaper")
+    public BaseMessage makePaper(@PathVariable("paperId") String paperId, @RequestBody MakePaper makePaper) {
+        User user = LoginUtil.getLoginUser();
+        makePaper.setUserId(user.getId());
+        makePaper.setCreateTime(new Date());
+        makePaper.setId(UUID.randomUUID().toString());
+        if (makePaperService.insert(makePaper)) {
+            return new BaseMessage(200, true, localMessageSource.getMessage("paper.make.success"));
+        }
+        return new BaseMessage(201, false, localMessageSource.getMessage("paper.make.failed"));
     }
 
     private String getSubjectOrder(int order) {

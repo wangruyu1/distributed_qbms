@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <classPathEntry
+            location="/Users/wangruyu/Downloads/mysql-connector-java-5.1.41/mysql-connector-java-5.1.41-bin.jar"/>
+
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/qbms?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false"
+                        userId="root"
+                        password="wangruyu">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="cn.qtech.domain" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="cn.qtech.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!--<table tableName="user" domainObjectName="User"-->
+               <!--enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false"-->
+               <!--enableUpdateByExample="flase" selectByPrimaryKeyQueryId="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+        <!--<table tableName="role" domainObjectName="Role"-->
+               <!--enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false"-->
+               <!--enableUpdateByExample="flase" selectByPrimaryKeyQueryId="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+        <!--<table tableName="user_role_map" domainObjectName="UserRoleMap"-->
+               <!--enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false"-->
+               <!--enableUpdateByExample="flase" selectByPrimaryKeyQueryId="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+        <table tableName="user_paper" domainObjectName="UserPaper"
+               enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false"
+               enableUpdateByExample="flase" selectByPrimaryKeyQueryId="false" selectByExampleQueryId="false">
+        </table>
+        <!--<table tableName="role_menu_map" domainObjectName="RoleMenuMap"-->
+               <!--enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false"-->
+               <!--enableUpdateByExample="flase" selectByPrimaryKeyQueryId="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+        <!--<table tableName="subject" domainObjectName="Subject"-->
+               <!--enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false"-->
+               <!--enableUpdateByExample="flase" selectByPrimaryKeyQueryId="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+        <!--<table tableName="subject_category" domainObjectName="SubjectCategory"-->
+               <!--enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false"-->
+               <!--enableUpdateByExample="flase" selectByPrimaryKeyQueryId="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+        <!--<table tableName="paper" domainObjectName="Paper"-->
+               <!--enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false"-->
+               <!--enableUpdateByExample="flase" selectByPrimaryKeyQueryId="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+        <!--<table tableName="paper_category" domainObjectName="PaperCategory"-->
+               <!--enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false"-->
+               <!--enableUpdateByExample="flase" selectByPrimaryKeyQueryId="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+        <!--<table tableName="subject_difficulty" domainObjectName="SubjectDifficulty"-->
+               <!--enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false"-->
+               <!--enableUpdateByExample="flase" selectByPrimaryKeyQueryId="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+
+    </context>
+</generatorConfiguration>

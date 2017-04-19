@@ -24,6 +24,10 @@ public class IndexController {
 
     @RequestMapping(value = {"/", "/home", "/index"}, method = RequestMethod.GET)
     public ModelAndView home() {
+        User user = LoginUtil.getLoginUser();
+        if (user == null) {
+            return new ModelAndView("/login");
+        }
         return new ModelAndView("index");
     }
 

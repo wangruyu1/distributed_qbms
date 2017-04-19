@@ -4,7 +4,8 @@ server:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8081/eureka/
+#      defaultZone: http://localhost:8081/eureka/
+      defaultZone: http://wangruyu:wangruyu@localhost:8081/eureka/
 
 spring:
   application:
@@ -14,6 +15,8 @@ spring:
     url: jdbc:mysql://localhost:3306/qbms?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
     password: wangruyu
+  jmx:
+      default-domain: ${spring.application.name}
 #redis
   redis:
     host: localhost
@@ -35,7 +38,7 @@ hystrix:
     default:
       execution:
         timeout:
-          enabled: false
+          enabled: true
         isolation:
           strategy: SEMAPHORE
           thread:

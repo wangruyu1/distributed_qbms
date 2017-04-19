@@ -5,25 +5,27 @@
     <title>题库管理系统</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/js/datetimepicker/datetimepicker.css"/>
     <link rel="stylesheet" href="/css/adminlte/font-awesome.min.css"/>
     <!-- Ionicons -->
     <link rel="stylesheet" href="/css/adminlte/ionicons.min.css"/>
-    <!--<link rel="stylesheet" href="/css/adminlte/jquery-jvectormap-1.2.2.css"/>-->
+    <link rel="stylesheet" href="/css/adminlte/jquery-jvectormap-1.2.2.css"/>
     <!-- Theme style -->
     <link rel="stylesheet" href="/css/adminlte/AdminLTE.min.css"/>
     <!--&lt;!&ndash; AdminLTE Skins. Choose a skin from the css/skins-->
     <!--folder instead of downloading all of them to reduce the load. &ndash;&gt;-->
-    <!--<link rel="stylesheet" href="/css/adminlte/_all-skins.min.css"/>-->
+    <link rel="stylesheet" href="/css/adminlte/_all-skins.min.css"/>
     <!-- iCheck -->
     <!--<link rel="stylesheet" href="/css/adminlte/blue.css"/>-->
     <link rel="stylesheet" href="/css/adminlte/_all-skins.min.css"/>
     <link rel="stylesheet" href="/css/adminlte/blue.css"/>
     <link rel="stylesheet" href="/css/adminlte/morris.css"/>
     <link rel="stylesheet" href="/css/adminlte/jquery-jvectormap-1.2.2.css"/>
-    <link rel="stylesheet" href="/css/adminlte/datepicker3.css"/>
-    <link rel="stylesheet" href="/css/adminlte/daterangepicker.css"/>
+    <!--<link rel="stylesheet" href="/css/adminlte/datepicker3.css"/>-->
+    <!--<link rel="stylesheet" href="/css/adminlte/daterangepicker.css"/>-->
     <link rel="stylesheet" href="/css/adminlte/bootstrap3-wysihtml5.min.css"/>
     <link rel="stylesheet" href="/css/toaster.min.css"/>
     <link rel="stylesheet" href="/css/ag-grid/ag-grid.css"/>
@@ -34,15 +36,43 @@
     <script src="/js/html5shiv.min.js"></script>
     <script src="/js/respond.min.js"></script>
     <![endif]-->
+    <script src="/js/jquery-2.2.3.min.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/moment.min.js"></script>
     <script src="/js/angular.js"></script>
+    <script src="/js/datetimepicker/datetimepicker.js"></script>
+    <script src="/js/datetimepicker/datetimepicker.templates.js"></script>
     <script src="/js/angular-resource.min.js"></script>
     <script src="/js/angular-ui-router.js"></script>
     <script src="/js/angular-animate.min.js"></script>
     <script src="/js/angular-touch.min.js"></script>
-    <script src="/js/jquery-2.2.3.min.js"></script>
-    <script src="/js/bootstrap.js"></script>
     <script src="/js/toaster.min.js"></script>
-    <!--ag-grid-->
+
+    <!--&lt;!&ndash;Morris.js charts&ndash;&gt;-->
+    <!--<script src="/js/raphael-min.js"></script>-->
+    <!--<script src="/js/morris.min.js"></script>-->
+    <!--&lt;!&ndash;Sparkline&ndash;&gt;-->
+    <!--<script src="/js/jquery.sparkline.min.js"></script>-->
+    <!--&lt;!&ndash;jvectormap&ndash;&gt;-->
+    <!--<script src="/js/jquery-jvectormap-1.2.2.min.js"></script>-->
+    <!--<script src="/js/jquery-jvectormap-world-mill-en.js"></script>-->
+    <!--&lt;!&ndash;jQuery Knob Chart&ndash;&gt;-->
+    <!--<script src="/js/jquery.knob.js"></script>-->
+    <!--&lt;!&ndash;daterangepicker&ndash;&gt;-->
+    <!--<script src="/js/daterangepicker.js"></script>-->
+    <!--&lt;!&ndash;datepicker&ndash;&gt;-->
+    <!--<script src="/js/bootstrap-datepicker.js"></script>-->
+    <!--&lt;!&ndash;Bootstrap WYSIHTML5&ndash;&gt;-->
+    <!--<script src="/js/bootstrap3-wysihtml5.all.min.js"></script>-->
+    <!--&lt;!&ndash;Slimscroll&ndash;&gt;-->
+    <!--<script src="/js/jquery.slimscroll.min.js"></script>-->
+    <!--&lt;!&ndash;FastClick&ndash;&gt;-->
+    <!--<script src="/js/fastclick.js"></script>-->
+    <!--datetimepicker-->
+    <!--<script type="text/javascript" src="/js/datetimepicker/moment.min.js"></script>-->
+    <!--<link rel="stylesheet" href="/js/datetimepicker/jquery.datetimepicker.css"/>-->
+    <!--<script type="text/javascript" src="/js/datetimepicker/jquery.datetimepicker.js"></script>-->
+
     <script src="/js/ag-grid.js"></script>
     <script src="/js/ui-bootstrap-tpls-2.5.0.min.js"></script>
     <script src="/router.js"></script>
@@ -210,10 +240,12 @@
                     <div class="col-sm-6">
                         <input type="password" class="form-control" name="oldPsw" id="oldPsw"
                                required="required"
-                               placeholder="请输入原始密码" ng-model="oldPsw" ng-blur="checkOldPsw()" ng-focus="wipeOffTip()" />
+                               placeholder="请输入原始密码" ng-model="oldPsw" ng-blur="checkOldPsw()" ng-focus="wipeOffTip()"/>
                     </div>
-                    <span class="required" ng-if="passwordForm.oldPsw.$dirty&amp;&amp;(oldPswFlag==false)&amp;&amp;finishOldPsw">密码错误</span>
-                    <span class="yes" ng-if="passwordForm.oldPsw.$dirty&amp;&amp;(oldPswFlag==true)&amp;&amp;finishOldPsw">密码正确</span>
+                    <span class="required"
+                          ng-if="passwordForm.oldPsw.$dirty&amp;&amp;(oldPswFlag==false)&amp;&amp;finishOldPsw">密码错误</span>
+                    <span class="yes"
+                          ng-if="passwordForm.oldPsw.$dirty&amp;&amp;(oldPswFlag==true)&amp;&amp;finishOldPsw">密码正确</span>
                 </div>
                 <div class="form-group">
                     <label for="newPsw" class="col-sm-3 control-label">新密码:</label>
@@ -237,7 +269,9 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal" ng-click="cancel()">取消</button>
-            <button type="button" class="btn btn-primary" ng-click="ok()" ng-disabled="passwordForm.$invalid||oldPswFlag==false||newPsw!=reNewPsw">确定</button>
+            <button type="button" class="btn btn-primary" ng-click="ok()"
+                    ng-disabled="passwordForm.$invalid||oldPswFlag==false||newPsw!=reNewPsw">确定
+            </button>
         </div>
     </div>
 </script>

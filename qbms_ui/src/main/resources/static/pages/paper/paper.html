@@ -19,6 +19,11 @@
                                 ng-click="getPaperDetail()">
                             <i class="fa fa-commenting"></i> 试卷详情
                         </button>
+                        <button class="btn btn-app"
+                                ng-disabled="selectedRow==undefined"
+                                ng-click="makePaper()">
+                            <i class="fa fa-commenting"></i> 出题
+                        </button>
                     </div><!-- /.box-header -->
                     <div class="box-body">
                         <div ag-grid="gridOptions" class="ag-blue" style="height: 100%;"></div>
@@ -95,4 +100,46 @@
         <button class="btn btn-primary" type="button" ng-click="ok()">确定
         </button>
     </div>
+</script>
+<script type="text/ng-template" id="makePaper.html">
+    <div class="modal-header">
+        <button class="close" ng-click="cancel()"><span class="white">&times;</span></button>
+        <h3 class="modal-title" id="modal-title">出题</h3>
+    </div>
+    <div class="modal-body warn">
+        <form class="form-horizontal" name="paperForm">
+            <div class="form-group">
+                <label for="startTime" class="col-sm-2 control-label">开始时间:</label>
+                <div class="input-group date col-sm-5">
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" id="dropdown" role="button" data-toggle="dropdown" data-target="#"
+                           href="#">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                <span type="text" id="startTime" name="startTime" class="form-control">{{paper.startTime | date:"yyyy年MM月dd日 h:mma"}}</span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <datetimepicker data-ng-model="paper.startTime"
+                                            data-datetimepicker-config="{ dropdownSelector: '#dropdown' }"></datetimepicker>
+                        </ul>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="totalTime" class="col-sm-2 control-label">总用时:</label>
+                    <div class="input-group col-sm-5">
+                        <input type="text" class="form-control" id="totalTime" name="totalTime"
+                               placeholder="总用时:分钟" ng-model="paper.totalTime">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-default" ng-click="cancel()">取消</button>
+        <button type="submit" class="btn btn-info pull-right" ng-click="ok()" ng-disabled="paperForm.$invalid">确定
+        </button>
+    </div>
+
+
 </script>

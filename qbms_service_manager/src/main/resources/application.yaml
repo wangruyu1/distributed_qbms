@@ -7,3 +7,10 @@ eureka:
     register-with-eureka: false
     serviceUrl:
       defaultZone: http://localhost:${server.port}/eureka/
+security:
+  basic:
+    enabled: true
+  user:
+    password: wangruyu
+    name: wangruyu
+

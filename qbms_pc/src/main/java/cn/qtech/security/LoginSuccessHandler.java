@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.MessageFormat;
@@ -27,9 +26,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginSuccessHandler.class);
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        HttpSession session = request.getSession(false);
-        session.setAttribute("test","ok");
-        System.out.println(session.getId());
         User user = LoginUtil.getLoginUser();
         LOGGER.info(MessageFormat.format("用户{0}登录成功...",user.getName()));
         response.setContentType("text/html;charset=UTF-8");

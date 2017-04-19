@@ -20,6 +20,7 @@
         <module>qbms_common</module>
         <module>qbms_service_manager</module>
         <module>qbms_pc</module>
+        <module>qbms_user</module>
     </modules>
 
 

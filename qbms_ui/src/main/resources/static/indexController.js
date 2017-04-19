@@ -22,7 +22,7 @@ angular.module("QBMS")
         function queryUser() {
             Service.user.get(function (data) {
                 if (data.menus == undefined) {
-                    $window.top.location.href = "/ac/login.html";
+                    $window.top.location.href = "/login.html";
                 } else if (data.result == undefined) {
                     $scope.user = data;
                     $scope.menus = data.menus;

@@ -23,12 +23,12 @@ public class AppException extends Exception {
     }
 
     public AppException(String code) {
-        this.message = messageSource.getMessage(code, null, localeContext.getLocale());
+        this.message = messageSource.getMessage(code, new Object[]{}, localeContext.getLocale());
     }
 
     public AppException(int status, String code) {
         this.status = status;
-        this.message = messageSource.getMessage(code, null, localeContext.getLocale());
+        this.message = messageSource.getMessage(code, new Object[]{}, localeContext.getLocale());
     }
 
 
