@@ -1,6 +1,9 @@
 package cn.qtech.mapper;
 
 import cn.qtech.domain.ManagerUserMap;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface ManagerUserMapMapper {
     /**
@@ -50,4 +53,6 @@ public interface ManagerUserMapMapper {
      * @mbggenerated Mon Apr 17 15:50:22 CST 2017
      */
     int updateByPrimaryKey(ManagerUserMap record);
+
+    List<String> queryUserIdsByManagerId(@Param("managerId") String managerId);
 }

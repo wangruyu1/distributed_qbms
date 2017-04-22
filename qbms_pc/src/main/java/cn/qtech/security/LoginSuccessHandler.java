@@ -27,6 +27,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         User user = LoginUtil.getLoginUser();
+        System.out.println(request.getSession(false).getId());
         LOGGER.info(MessageFormat.format("用户{0}登录成功...",user.getName()));
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter printWriter = response.getWriter();

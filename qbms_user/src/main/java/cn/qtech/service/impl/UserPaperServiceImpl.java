@@ -44,11 +44,16 @@ public class UserPaperServiceImpl implements UserPaperService {
 
     @Override
     public List<UserPaper> queryAllByUserIdAndStatus(String userId, int status) {
-        return userPaperMapper.queryAllByUserIdAndStatus(userId,status);
+        return userPaperMapper.queryAllByUserIdAndStatus(userId, status);
     }
 
     @Override
     public boolean modifyContent(String paperId, String content) {
-        return userPaperMapper.modifyContent(paperId,content);
+        return userPaperMapper.modifyContent(paperId, content) > 0;
+    }
+
+    @Override
+    public boolean insertUserPapersByBatch(List<UserPaper> userPapers) {
+        return userPaperMapper.insertUserPapersByBatch(userPapers) > 0;
     }
 }

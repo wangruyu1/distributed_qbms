@@ -3,10 +3,12 @@ package cn.qtech.controller;
 import cn.qtech.commopent.LocalMessageSource;
 import cn.qtech.domain.*;
 import cn.qtech.domain.dto.BaseMessage;
+import cn.qtech.domain.dto.MakePaperDTO;
 import cn.qtech.domain.dto.PaperDTO;
 import cn.qtech.domain.dto.SubjectDTO;
 import cn.qtech.exception.AppException;
 import cn.qtech.feign.client.UserClient;
+import cn.qtech.rabbitmq.RabbitSender;
 import cn.qtech.service.*;
 import cn.qtech.utils.LoginUtil;
 import cn.qtech.utils.RandomNumberUtil;
@@ -39,6 +41,10 @@ public class PaperController {
     private UserClient userClient;
     @Autowired
     private MakePaperService makePaperService;
+    @Autowired
+    private ManagerUserService managerUserService;
+    @Autowired
+    private RabbitSender rabbitSender;
 
     @RequestMapping(value = "papers", method = RequestMethod.GET)
     public List<PaperDTO> queryAll() {
@@ -249,7 +255,16 @@ public class PaperController {
         makePaper.setCreateTime(new Date());
         makePaper.setId(UUID.randomUUID().toString());
         if (makePaperService.insert(makePaper)) {
-            return new BaseMessage(200, true, localMessageSource.getMessage("paper.make.success"));
+            //通过rabbitmq通知user模块添加试卷信息.
+            List<String> userIds = managerUserService.queryUserIdsByManagerId(user.getId());
+            MakePaperDTO makePaperDTO = new MakePaperDTO();
+            makePaperDTO.setPaper(paperService.queryById(paperId));
+            makePaperDTO.setManagerId(user.getId());
+            makePaperDTO.setMakePaper(makePaper);
+            makePaperDTO.setUserIds(userIds);
+            if (rabbitSender.sendMessage(makePaperDTO)) {
+                return new BaseMessage(200, true, localMessageSource.getMessage("paper.make.success"));
+            }
         }
         return new BaseMessage(201, false, localMessageSource.getMessage("paper.make.failed"));
     }

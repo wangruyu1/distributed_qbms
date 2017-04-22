@@ -3,7 +3,6 @@ package cn.qtech.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.stereotype.Component;
 
@@ -17,10 +16,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         LoginSuccessHandler loginSuccessHandler = new LoginSuccessHandler();
         LoginFailedHandler loginFailedHandler = new LoginFailedHandler();
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
-        http.sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(true);
+//        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
+//        http.sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(true);
+        http.logout().deleteCookies("JSESSIONID").invalidateHttpSession(true);
         http.authorizeRequests()
-//                .antMatchers("/controllers/loginController.js", "/metrontic/**", "/img/**","/pc/**").permitAll()
+//                .antMatchers("/pc/logout").permitAll()
                 .antMatchers("/**").authenticated()
                 .and()
                 .formLogin()

@@ -27,6 +27,7 @@ public class LoginFailedHandler implements AuthenticationFailureHandler {
         ObjectMapper objectMapper = new ObjectMapper();
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter printWriter = response.getWriter();
+        System.out.println(request.getSession(false).getId());
         if (exception instanceof InternalAuthenticationServiceException) {
             printWriter.print(objectMapper.writeValueAsString(new BaseMessage(401, false, exception.getMessage())));
         } else if (exception instanceof UsernameNotFoundException || exception instanceof AuthenticationException) {

@@ -55,4 +55,10 @@ angular.module("QBMS.router", ['ui.router'])
                     controller: "AddPaperAutomaticController",
                 }
             )
+            .state('userpaper/history', {
+                    url: "/userpaper/history",
+                    templateUrl: "pages/userpaper/userpaper.html",
+                    controller: "UserPaperController",
+                }
+            )
     });

@@ -58,8 +58,8 @@ hystrix:
             timeoutInMilliseconds: 60000
 
 
-security:
-  sessions: always
+#security:
+#  sessions: always
 #mybatis
 mybatis:
   mapperLocations: classpath:mapper/*.xml

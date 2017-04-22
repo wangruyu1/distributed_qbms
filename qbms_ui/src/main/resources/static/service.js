@@ -76,6 +76,9 @@ angular.module("QBMS.services", ['ngResource'])
             addContent: $resource(manager + "/paper/:id/subject", {}, {}),
             addPaperAutomatic: $resource(manager + "/paper/:id", {}, {}),
             makePaper: $resource(manager + "/paper/:id/makepaper", {}, {}),
+
+            //userpaper
+            userpapers: $resource(user + "/userpapers/status=:status", {}, {}),
         };
         return service;
     })

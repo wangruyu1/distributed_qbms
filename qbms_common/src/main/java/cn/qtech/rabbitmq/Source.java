@@ -1,6 +1,5 @@
 package cn.qtech.rabbitmq;
 
-import cn.qtech.constant.SourceChannelName;
 import org.springframework.cloud.stream.annotation.Input;
 import org.springframework.cloud.stream.annotation.Output;
 import org.springframework.messaging.MessageChannel;
@@ -11,15 +10,12 @@ import org.springframework.messaging.SubscribableChannel;
  * @since 2017/4/17-19:12
  */
 public interface Source {
-    @Input(SourceChannelName.MANAGER)
-    SubscribableChannel manager();
+    String MANAGER_INPUT = "qbms_manager_input";
+    String MANAGER_OUTPUT = "qbms_manager_output";
 
-    @Output(SourceChannelName.AC)
-    MessageChannel ac();
+    @Input(MANAGER_INPUT)
+    SubscribableChannel manager_input();
 
-    @Output(SourceChannelName.UI)
-    MessageChannel ui();
-
-    @Output(SourceChannelName.USER)
-    MessageChannel user();
+    @Output(MANAGER_OUTPUT)
+    MessageChannel manager_output();
 }

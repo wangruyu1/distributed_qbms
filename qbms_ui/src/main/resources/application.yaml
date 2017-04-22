@@ -22,6 +22,10 @@ zuul:
       path: /manager/**
       serviceId: qbms-manager
       sensitiveHeaders:
+    user_url:
+      path: /user/**
+      serviceId: qbms-user
+      sensitiveHeaders:
 feign:
   hystrix:
     enabled: true
@@ -53,14 +57,14 @@ spring:
   messages:
     basename: i18n/messages
     encoding: UTF-8
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: wangruyu
-    password: wangruyu
-    publisher-confirms: true
-    virtual-host: /
-    addresses: localhost:5672
+#  rabbitmq:
+#    host: localhost
+#    port: 5672
+#    username: wangruyu
+#    password: wangruyu
+#    publisher-confirms: true
+#    virtual-host: /
+#    addresses: localhost:5672
 #  cloud:
 #    stream:
 #      bindings:
@@ -80,8 +84,8 @@ spring:
 #                virtual-host: /
 
 
-security:
-  sessions: never
+#security:
+#  sessions: never
 
 #encoding
 web:

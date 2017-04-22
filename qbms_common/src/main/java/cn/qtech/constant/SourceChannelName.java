@@ -6,7 +6,7 @@ package cn.qtech.constant;
  */
 public class SourceChannelName {
     public static final String USER = "qbms_user";
-    public static final String MANAGER = "qbms_user";
+    public static final String MANAGER_INPUT = "qbms_user_input";
     public static final String AC = "qbms_pc";
     public static final String UI = "qbms_ui";
 }

@@ -16,10 +16,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);
-        http.logout().deleteCookies("JSESSIONID");
+        http.logout().deleteCookies("JSESSIONID").invalidateHttpSession(true);
         http.sessionManagement().invalidSessionUrl("/login.html");
         http.authorizeRequests()
-                .antMatchers( "/login", "/pc/login","/controllers/loginController.js").permitAll()
+                .antMatchers("/login", "/pc/login", "/controllers/loginController.js").permitAll()
                 .antMatchers("/**").authenticated()
                 .and()
                 .formLogin()

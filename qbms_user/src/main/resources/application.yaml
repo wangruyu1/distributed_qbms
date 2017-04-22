@@ -17,6 +17,24 @@ spring:
     url: jdbc:mysql://localhost:3306/qbms?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
     password: wangruyu
+  cloud:
+    stream:
+      bindings:
+        qbms_manager_input:       #channelName
+          destination: manager_channel #destination，或者可以认为是发布－订阅模型里面的topic
+          group: manager_user_group
+          binder: myRabbit
+      binders:
+        myRabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: localhost   #rabbitMQ服务器地址
+                port: 5672          #rabbitMQ服务器端口
+                username: wangruyu
+                password: wangruyu
+                virtual-host: /
 #redis
   redis:
     host: localhost

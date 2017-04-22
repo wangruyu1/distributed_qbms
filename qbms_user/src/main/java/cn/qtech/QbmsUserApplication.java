@@ -7,6 +7,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @author wangruyu
@@ -15,6 +16,7 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
 @SpringBootApplication
 @EnableFeignClients
 @EnableEurekaClient
+@EnableScheduling
 @EnableBinding(Source.class)
 @MapperScan(value = "cn.qtech.mapper")
 public class QbmsUserApplication {

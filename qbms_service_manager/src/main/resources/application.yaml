@@ -9,7 +9,7 @@ eureka:
       defaultZone: http://localhost:${server.port}/eureka/
 security:
   basic:
-    enabled: true
+    enabled: false
   user:
     password: wangruyu
     name: wangruyu

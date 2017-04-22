@@ -12,4 +12,6 @@ public interface UserPaperService extends BaseService<UserPaper>{
     List<UserPaper> queryAllByUserIdAndStatus(String userId, int status);
 
     boolean modifyContent(String paperId, String content);
+
+    boolean insertUserPapersByBatch(List<UserPaper> userPapers);
 }

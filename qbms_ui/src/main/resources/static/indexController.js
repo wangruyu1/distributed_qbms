@@ -5,11 +5,31 @@ agGrid.initialiseAgGridWithAngular1(angular);
 angular.module("QBMS")
 
     .controller("IndexController", function ($rootScope, $scope, toaster, $window, Service, $uibModal) {
-        //锁屏
-        // if ($rootScope.lockScreen == true) {
-        //     $window.top.location.href = "/login.html";
-        //     return;
-        // }
+        // connect();
+        var stompClient = null;
+        function connect() {
+            var socket = new SockJS('/endpointWisely'); //1
+            stompClient = Stomp.over(socket);//2
+            stompClient.connect({}, function (frame) {//3
+                // setConnected(true);
+                console.log('开始进行连接Connected: ' + frame);
+                stompClient.subscribe('/topic/getResponse', function (respnose) { //4
+                    // showResponse(JSON.parse(respnose.body).responseMessage);
+                    $scope.exam = JSON.parse(respnose.body).responseMessage;
+                });
+            });
+        }
+        function disconnect() {
+            if (stompClient != null) {
+                stompClient.disconnect();
+            }
+            // setConnected(false);
+            console.log("Disconnected");
+        }
+        function sendName() {
+            var name = $('#name').val();
+            stompClient.send("/welcome", {}, JSON.stringify({'name': name}));//5
+        }
 
 
         $scope.user = {};
@@ -71,7 +91,7 @@ angular.module("QBMS")
             $uibModalInstance.dismiss();
         }
         $scope.ok = function () {
-            Service.modifyPassword.put({password: $scope.newPsw},{}, function (data) {
+            Service.modifyPassword.put({password: $scope.newPsw}, {}, function (data) {
                 if (data.result == true) {
                     toaster.pop('success', data.message);
                     $scope.cancel();
