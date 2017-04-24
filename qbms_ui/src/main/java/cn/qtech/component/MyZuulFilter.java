@@ -43,9 +43,9 @@ public class MyZuulFilter extends ZuulFilter {
         HttpServletRequest request = context.getRequest();
         HttpServletResponse response = context.getResponse();
         System.out.println(request.getServletPath());
-//        if(request.getSession(false) != null){
-//            System.out.println(request.getSession(false).getId());
-//        }
+        if(request.getSession(false) != null){
+            System.out.println(request.getSession(false).getId());
+        }
         if (request.getServletPath().contains("login")) {
             return null;
         }

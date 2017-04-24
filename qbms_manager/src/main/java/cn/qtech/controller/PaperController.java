@@ -48,7 +48,6 @@ public class PaperController {
 
     @RequestMapping(value = "papers", method = RequestMethod.GET)
     public List<PaperDTO> queryAll() {
-        System.out.println("user:" + LoginUtil.getLoginUser());
         List<PaperDTO> rtnData = new ArrayList<>();
         List<Paper> papers = paperService.queryAll();
 
@@ -90,51 +89,9 @@ public class PaperController {
             return rtnData;
         }
         //查询试题信息
-        String[] subjectIds = content.split("\\|");
-        List<String> subjectIdList = Arrays.asList(subjectIds).subList(1, subjectIds.length);
-        StringBuilder bigSubjectContent = new StringBuilder();
-        StringBuilder bigSubjectAnswer = new StringBuilder();
-        for (int i = 0; i < subjectIdList.size(); i++) {
-            String id = subjectIdList.get(i);
-            //获取每题分数
-            String[] scoreIds = id.split("#");
-            int score = Integer.parseInt(scoreIds[0]);
-            List<String> realIdList = Arrays.asList(scoreIds[1].split(","));
-            //查询试题
-            List<SubjectWithBLOBs> subjects = subjectService.querySubjectsByBatch(realIdList);
-            StringBuilder contentStr = new StringBuilder();
-            contentStr.append("第");
-            contentStr.append(this.getSubjectOrder(i + 1));
-            contentStr.append("题:");
-            if (subjects.size() > 0) {
-                SubjectCategory subjectCategory = subjectCategoryService.queryById(subjects.get(0).getSubjectCategoryId());
-                contentStr.append(subjectCategory.getName());
-            }
-            contentStr.append("(每题");
-            contentStr.append(score);
-            contentStr.append("分)\r\n");
-            StringBuilder answerStr = new StringBuilder();
-            answerStr.append(contentStr);
-            for (int j = 0; j < subjects.size(); j++) {
-                SubjectWithBLOBs subject = subjects.get(j);
-                contentStr.append(j + 1);
-                contentStr.append(".");
-                contentStr.append(subject.getName());
-                contentStr.append("\r\n");
-                contentStr.append(subject.getContent());
-                contentStr.append("\r\n");
-                //答案
-                answerStr.append(j + 1);
-                answerStr.append(":");
-                answerStr.append(subject.getAnswer());
-                answerStr.append("\r\n");
-            }
-            bigSubjectContent.append(contentStr);
-            bigSubjectAnswer.append(answerStr);
-        }
-
-        rtnData.setContent(bigSubjectContent.toString());
-        rtnData.setAnswer(bigSubjectAnswer.toString());
+        PaperDTO temp = this.getPaperDetail(paper.getContent());
+        rtnData.setContent(temp.getContent());
+        rtnData.setAnswer(temp.getAnswer());
         return rtnData;
     }
 
@@ -258,7 +215,10 @@ public class PaperController {
             //通过rabbitmq通知user模块添加试卷信息.
             List<String> userIds = managerUserService.queryUserIdsByManagerId(user.getId());
             MakePaperDTO makePaperDTO = new MakePaperDTO();
-            makePaperDTO.setPaper(paperService.queryById(paperId));
+            Paper paper = paperService.queryById(paperId);
+            PaperDTO paperDto = this.getPaperDetail(paper.getContent());
+            paper.setContent(paperDto.getContent());
+            makePaperDTO.setPaper(paper);
             makePaperDTO.setManagerId(user.getId());
             makePaperDTO.setMakePaper(makePaper);
             makePaperDTO.setUserIds(userIds);
@@ -290,6 +250,55 @@ public class PaperController {
             default:
                 return "需要添加题号";
         }
+    }
+
+    private PaperDTO getPaperDetail(String content) {
+        String[] subjectIds = content.split("\\|");
+        List<String> subjectIdList = Arrays.asList(subjectIds).subList(1, subjectIds.length);
+        StringBuilder bigSubjectContent = new StringBuilder();
+        StringBuilder bigSubjectAnswer = new StringBuilder();
+        PaperDTO paper = new PaperDTO();
+        for (int i = 0; i < subjectIdList.size(); i++) {
+            String id = subjectIdList.get(i);
+            //获取每题分数
+            String[] scoreIds = id.split("#");
+            int score = Integer.parseInt(scoreIds[0]);
+            List<String> realIdList = Arrays.asList(scoreIds[1].split(","));
+            //查询试题
+            List<SubjectWithBLOBs> subjects = subjectService.querySubjectsByBatch(realIdList);
+            StringBuilder contentStr = new StringBuilder();
+            contentStr.append("第");
+            contentStr.append(this.getSubjectOrder(i + 1));
+            contentStr.append("题:");
+            if (subjects.size() > 0) {
+                SubjectCategory subjectCategory = subjectCategoryService.queryById(subjects.get(0).getSubjectCategoryId());
+                contentStr.append(subjectCategory.getName());
+            }
+            contentStr.append("(每题");
+            contentStr.append(score);
+            contentStr.append("分)\r\n");
+            StringBuilder answerStr = new StringBuilder();
+            answerStr.append(contentStr);
+            for (int j = 0; j < subjects.size(); j++) {
+                SubjectWithBLOBs subject = subjects.get(j);
+                contentStr.append(j + 1);
+                contentStr.append(".");
+                contentStr.append(subject.getName());
+                contentStr.append("\r\n");
+                contentStr.append(subject.getContent());
+                contentStr.append("\r\n");
+                //答案
+                answerStr.append(j + 1);
+                answerStr.append(":");
+                answerStr.append(subject.getAnswer());
+                answerStr.append("\r\n");
+            }
+            bigSubjectContent.append(contentStr);
+            bigSubjectAnswer.append(answerStr);
+            paper.setContent(bigSubjectContent.toString());
+            paper.setAnswer(bigSubjectAnswer.toString());
+        }
+        return paper;
     }
 
 }

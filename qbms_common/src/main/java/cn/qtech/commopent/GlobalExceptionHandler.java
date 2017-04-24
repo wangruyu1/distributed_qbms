@@ -30,7 +30,6 @@ public class GlobalExceptionHandler {
         if (e instanceof AppException) {
             return new BaseMessage(500, false, e.getMessage());
         }
-
         return new BaseMessage(500, false, messageSource.getMessage("controller.exception.occur"));
     }
 

@@ -43,10 +43,10 @@
                <!--enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false"-->
                <!--enableUpdateByExample="flase" selectByPrimaryKeyQueryId="false" selectByExampleQueryId="false">-->
         <!--</table>-->
-        <table tableName="make_paper" domainObjectName="MakePaper"
-               enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false"
-               enableUpdateByExample="flase" selectByPrimaryKeyQueryId="false" selectByExampleQueryId="false">
-        </table>
+        <!--<table tableName="make_paper" domainObjectName="MakePaper"-->
+               <!--enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false"-->
+               <!--enableUpdateByExample="flase" selectByPrimaryKeyQueryId="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
         <!--<table tableName="manager_user_map" domainObjectName="ManagerUserMap"-->
                <!--enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false"-->
                <!--enableUpdateByExample="flase" selectByPrimaryKeyQueryId="false" selectByExampleQueryId="false">-->
@@ -63,10 +63,10 @@
                <!--enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false"-->
                <!--enableUpdateByExample="flase" selectByPrimaryKeyQueryId="false" selectByExampleQueryId="false">-->
         <!--</table>-->
-        <!--<table tableName="paper" domainObjectName="Paper"-->
-               <!--enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false"-->
-               <!--enableUpdateByExample="flase" selectByPrimaryKeyQueryId="false" selectByExampleQueryId="false">-->
-        <!--</table>-->
+        <table tableName="paper" domainObjectName="Paper"
+               enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false"
+               enableUpdateByExample="flase" selectByPrimaryKeyQueryId="false" selectByExampleQueryId="false">
+        </table>
         <!--<table tableName="paper_category" domainObjectName="PaperCategory"-->
                <!--enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false"-->
                <!--enableUpdateByExample="flase" selectByPrimaryKeyQueryId="false" selectByExampleQueryId="false">-->

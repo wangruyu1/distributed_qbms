@@ -35,7 +35,7 @@ ribbon:
   ReadTimeout: 60000
   ConnectTimeout: 60000
 hystrix:
-#  shareSecurityContext: true
+  shareSecurityContext: true
   command:
     default:
       execution:
@@ -47,8 +47,6 @@ hystrix:
 spring:
   application:
     name: qbms-ui
-  jmx:
-      default-domain: ${spring.application.name}
 #redis
   redis:
     host: localhost
@@ -84,8 +82,11 @@ spring:
 #                virtual-host: /
 
 
-#security:
-#  sessions: never
+security:
+  sessions: never
+endpoints:
+  jmx:
+    domain: ${spring.application.name}
 
 #encoding
 web:

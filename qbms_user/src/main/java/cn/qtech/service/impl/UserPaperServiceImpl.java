@@ -6,6 +6,7 @@ import cn.qtech.service.UserPaperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -55,5 +56,10 @@ public class UserPaperServiceImpl implements UserPaperService {
     @Override
     public boolean insertUserPapersByBatch(List<UserPaper> userPapers) {
         return userPaperMapper.insertUserPapersByBatch(userPapers) > 0;
+    }
+
+    @Override
+    public boolean changeUserPaperStatus(Date date, int value) {
+        return userPaperMapper.changeUserPaperStatus(date,value);
     }
 }

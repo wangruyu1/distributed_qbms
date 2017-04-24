@@ -9,7 +9,7 @@ import org.springframework.security.authentication.InternalAuthenticationService
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * @author wangruyu
  * @since 2017/3/14-18:24
  */
-@Component
+@Service
 public class UserService implements UserDetailsService {
     @Autowired
     private UserMapper userMapper;

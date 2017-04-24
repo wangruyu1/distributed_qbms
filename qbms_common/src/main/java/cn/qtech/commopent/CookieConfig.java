@@ -11,6 +11,7 @@ public class CookieConfig {
     public DefaultCookieSerializer defaultCookieSerializer() {
         DefaultCookieSerializer defaultCookieSerializer = new DefaultCookieSerializer();
         defaultCookieSerializer.setCookiePath("/");
+//        defaultCookieSerializer.setCookieName("JSESSIONID");
 //        defaultCookieSerializer.setDomainNamePattern("^.+?\\.(\\w+\\.[a-z]+)$");
         return defaultCookieSerializer;
     }

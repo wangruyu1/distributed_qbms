@@ -10,8 +10,6 @@ eureka:
 spring:
   application:
     name: qbms-user
-  jmx:
-    default-domain: ${spring.application.name}
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/qbms?useUnicode=true&characterEncoding=utf-8&useSSL=false
@@ -61,6 +59,7 @@ hystrix:
           strategy: SEMAPHORE
           thread:
             timeoutInMilliseconds: 60000
+
 #mybatis
 mybatis:
   mapperLocations: classpath:mapper/*.xml
@@ -75,3 +74,6 @@ logging:
     cn.qtech.mapper: DEBUG
 security:
   sessions: never
+endpoints:
+  jmx:
+    domain: ${spring.application.name}

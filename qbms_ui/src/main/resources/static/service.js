@@ -19,6 +19,9 @@ angular.module("QBMS.services", ['ngResource'])
                 if (typeof(response.data) == 'string' && response.data.indexOf('QBMS.login') != -1) {
                     $window.top.location.href = '/login.html';
                     // return null;
+                } else if (response.data.result == false) {
+                    toaster.pop('error', response.data.message);
+                    return null;
                 }
                 return response || $q.when(response);
             },
@@ -44,7 +47,7 @@ angular.module("QBMS.services", ['ngResource'])
             user: $resource(pc + "/user", {}, {}),
             username: $resource(pc + "/user/:id/username", {}, {}),
             checkpassword: $resource(pc + "/user/password", {}, {}),
-            logout: $resource(pc + "/user/logout", {}, {}),
+            logout: $resource("/logout", {}, {}),
             modifyPassword: $resource(pc + "/user", {}, {put: {method: 'PUT'}}),
 
             //试卷分类

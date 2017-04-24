@@ -2,6 +2,7 @@ package cn.qtech.service;
 
 import cn.qtech.domain.UserPaper;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,4 +15,6 @@ public interface UserPaperService extends BaseService<UserPaper>{
     boolean modifyContent(String paperId, String content);
 
     boolean insertUserPapersByBatch(List<UserPaper> userPapers);
+
+    boolean changeUserPaperStatus(Date date, int value);
 }

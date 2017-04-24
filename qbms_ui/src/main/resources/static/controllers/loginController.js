@@ -12,9 +12,16 @@ angular.module("QBMS.login", ['toaster', 'ngAnimate'])
             })
                 .then(function (data) {
                     if (data.data.result == true) {
-                        $rootScope.lockScreen = false;
                         toaster.pop('success', '登陆成功');
-                        $window.location.href = "/index.html";
+                        $http.get("/pc/user").then(
+                            function (data) {
+                                if (data.data.type == 1) {
+                                    $window.location.href = "/index_manager.html";
+                                } else if (data.data.type == 3) {
+                                    $window.location.href = "/index.html";
+                                }
+                            }
+                        );
                         // $location.path("/index.html");
                         // $http.get("/home").then(function (data) {
                         //     var d = data;

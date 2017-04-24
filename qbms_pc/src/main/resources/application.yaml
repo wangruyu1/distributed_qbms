@@ -60,6 +60,9 @@ hystrix:
 
 #security:
 #  sessions: always
+endpoints:
+  jmx:
+    domain: ${spring.application.name}
 #mybatis
 mybatis:
   mapperLocations: classpath:mapper/*.xml
