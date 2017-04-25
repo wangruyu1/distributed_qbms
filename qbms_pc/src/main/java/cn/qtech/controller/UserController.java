@@ -2,6 +2,7 @@ package cn.qtech.controller;
 
 import cn.qtech.commopent.LocalMessageSource;
 import cn.qtech.domain.User;
+import cn.qtech.domain.data.UserData;
 import cn.qtech.domain.dto.BaseMessage;
 import cn.qtech.service.UserService;
 import cn.qtech.utils.LoginUtil;
@@ -59,5 +60,9 @@ public class UserController {
     @RequestMapping(value = "users/ids", method = RequestMethod.POST)
     public List<User> queryUsersByBatchIds(@RequestParam("userIds") List<String> userIds) {
         return userService.queryUsersByBatchIds(userIds);
+    }
+    @RequestMapping(value = "/user/names", method = RequestMethod.GET)
+    public List<UserData> queryUserNamesByBatchUserIds(@RequestParam("userIds")List<String> userIds){
+        return userService.queryUserNamesByBatchUserIds(userIds);
     }
 }

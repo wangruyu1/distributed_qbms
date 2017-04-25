@@ -24,3 +24,9 @@ angular.module("QBMS.filter", [])
             return year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
         }
     })
+    .filter("leftTime", function () {
+        return function (paper) {
+            var useredTime = parseInt((new Date().getTime() - paper.startTime) / 60000);
+            return paper.totalTime - useredTime;
+        }
+    })

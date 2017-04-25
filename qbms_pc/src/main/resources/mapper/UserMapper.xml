@@ -16,6 +16,10 @@
         <result column="phone" jdbcType="VARCHAR" property="phone"/>
         <result column="type" jdbcType="INTEGER" property="type"/>
     </resultMap>
+    <resultMap id="UserDataMap" type="cn.qtech.domain.data.UserData">
+        <result column="name" jdbcType="VARCHAR" property="userName"></result>
+        <result column="id" jdbcType="VARCHAR" property="userId"></result>
+    </resultMap>
     <sql id="Base_Column_List">
         <!--
           WARNING - @mbggenerated
@@ -202,4 +206,13 @@
         set password = #{password,jdbcType=VARCHAR}
         where name = #{name,jdbcType=VARCHAR}
     </update>
+    <select id="queryUserNamesByBatchUserIds" resultMap="UserDataMap">
+        select id,name
+        from user
+        where id in
+        <foreach collection="userIds" item="id" open="(" separator="," close=")">
+            #{id,jdbcType=VARCHAR}
+        </foreach>
+
+    </select>
 </mapper>

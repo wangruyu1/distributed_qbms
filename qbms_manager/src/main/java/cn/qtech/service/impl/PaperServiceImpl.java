@@ -56,4 +56,9 @@ public class PaperServiceImpl implements PaperService {
     public boolean addContent(String paperId, String content) {
         return paperMapper.addContent(paperId,content) > 0;
     }
+
+    @Override
+    public List<Paper> queryPapersByBatchPaperIds(List<String> userPaperIds) {
+        return paperMapper.queryPapersByBatchPaperIds(userPaperIds);
+    }
 }

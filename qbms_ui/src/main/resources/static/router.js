@@ -73,4 +73,19 @@ angular.module("QBMS.router", ['ui.router'])
                     controller: "StartingUserPaperController",
                 }
             )
+            .state('userpaper/startExaming', {
+                    url: "/userpaper/startExaming",
+                    templateUrl: "pages/userpaper/startExaming.html",
+                    controller: "StartExamingController",
+                    params: {
+                        'paper': null,
+                    }
+                }
+            )
+            .state('userpaper/revise', {
+                    url: "/userpaper/revise",
+                    templateUrl: "pages/paper/reviseUserPaper.html",
+                    controller: "ReviseUserPaperController",
+                }
+            )
     });

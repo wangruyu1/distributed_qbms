@@ -219,4 +219,12 @@
         where
         paper_id = #{paperId,jdbcType=VARCHAR}
     </update>
+    <select id="queryPapersByBatchPaperIds" resultMap="ResultMapWithBLOBs">
+        select paper_id ,content
+        from paper
+        where paper_id in
+        <foreach collection="paperIds" item="id" open="(" separator="," close=")">
+            #{id,jdbcType=VARCHAR}
+        </foreach>
+    </select>
 </mapper>

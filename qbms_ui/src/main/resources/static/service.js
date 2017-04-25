@@ -82,9 +82,13 @@ angular.module("QBMS.services", ['ngResource'])
 
             //userpaper
             userpapers: $resource(user + "/userpapers/status=:status", {}, {}),
+            commitedUserPapers: $resource(manager + "/userpapers/commited", {}, {}),
+            commitUserPaper: $resource(user + "/userPaper/:id", {}, {modify: {method: 'PUT'}})
         };
         return service;
     })
+
+    //同步请求
     .factory('syncService', ['$http', '$q', function ($http, $q) {
         return {
             synSubjectCategories: function () {

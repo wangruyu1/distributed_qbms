@@ -3,6 +3,7 @@ package cn.qtech.service;
 import cn.qtech.commopent.LocalMessageSource;
 import cn.qtech.domain.Role;
 import cn.qtech.domain.User;
+import cn.qtech.domain.data.UserData;
 import cn.qtech.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
@@ -51,5 +52,9 @@ public class UserService implements UserDetailsService {
 
     public boolean modifyPassword(String name, String password) {
         return userMapper.modifyPassword(name, password) > 0;
+    }
+
+    public List<UserData> queryUserNamesByBatchUserIds(List<String> userIds) {
+        return userMapper.queryUserNamesByBatchUserIds(userIds);
     }
 }

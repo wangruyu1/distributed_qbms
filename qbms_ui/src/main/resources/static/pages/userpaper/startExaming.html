@@ -1,0 +1,85 @@
+<div ng-view>
+    <section class="content-header">
+        <h3 class="no-margin">正在考试</h3>
+    </section>
+
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-solid" style="width:100%;height:auto;">
+                    <div class="box-header with-border">
+                        <button class="btn btn-app"
+                                ng-disabled="!canCommit || hasCommited"
+                                ng-click="finishedExam()">
+                            <i class="fa fa-hand-paper-o"></i> 提交
+                        </button>
+                        <span class="pull-right" ng-if="leftTime&gt;=1">剩余时间:{{time.getLeftTime()}}分钟</span>
+                        <span class="pull-right" ng-if="leftTime&lt;60 &amp;&amp; leftTime&gt;0">剩余时间:<i
+                                style="color:red;">{{leftTime}}</i>秒</span>
+                        <span class="pull-right" style="color:red;" ng-if="leftTime&lt;=0">已超时</span>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="panel-group" id="according" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-info">
+                                <div class="panel-heading" role="tab" id="content">
+                                    <h4 class="panel-title">
+                                        <a role="button" data-toggle="collapse" href="#collapseOne"
+                                           aria-expanded="true" aria-controls="collapseOne">
+                                            试卷内容
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
+                                     aria-labelledby="headingOne">
+                                    <div class="panel-body">
+                                        <p style="text-align: center;" ng-bind="paper.name"></p>
+                                        <div class="row">
+                                            <input class="col-md-12"
+                                                   style='border-left:15px;border-top:0px;border-right:15px;border-bottom:15px'
+                                                   type="text" ng-model="paper.title"></input>
+                                            <!--<span class="pull right" ng-cloak>得分:{{paper.score}}</span>-->
+                                        </div>
+                                        <textarea class="form-control" rows="20"
+                                                  placeholder="试卷内容" ng-bind="paper.content" readonly></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-success">
+                                <div class="panel-heading" role="tab" id="answer">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse"
+                                           href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                            试卷答案
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
+                                     aria-labelledby="answer">
+                                    <div class="panel-body">
+                            <textarea class="form-control" rows="20"
+                                      placeholder="答案填写格式:填写每题的序号即可.
+      例如:第一大题第1和第2题:
+      一:
+      1:A,B 2:F" ng-model="paper.answer"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div style="height:100%;">-->
+                        <!--<p style="text-align: center;" ng-bind="paper.name"></p>-->
+                        <!--<div>-->
+                        <!--<span class="pull left" ng-bind="paper.title"></span>-->
+                        <!--<span class="pull right" ng-bind="paper.score">得分:</span>-->
+                        <!--</div>-->
+                        <!--<textarea style="height:100%;width: 100%;" ng-bind="paper.content"></textarea>-->
+                        <!--</div>-->
+                    </div>
+                </div><!-- /.box -->
+            </div>
+
+        </div><!-- /.row -->
+        <!-- Main row -->
+
+    </section><!-- /.content -->
+</div>

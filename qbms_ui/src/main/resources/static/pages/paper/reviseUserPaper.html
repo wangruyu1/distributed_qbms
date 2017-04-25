@@ -1,0 +1,79 @@
+<div ng-view>
+    <section class="content-header">
+        <h3 class="no-margin">试卷管理</h3>
+    </section>
+
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-solid">
+                    <div class="box-header with-border">
+                        <button class="btn btn-app"
+                                ng-disabled="selectedRow==undefined"
+                                ng-click="correctUserPaper()">
+                            <i class="fa fa-commenting"></i> 批改
+                        </button>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div ag-grid="gridOptions" class="ag-blue" style="height: 100%;"></div>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div>
+
+        </div><!-- /.row -->
+        <!-- Main row -->
+
+    </section><!-- /.content -->
+</div>
+
+<script id="userPaperDetail.html" type="text/ng-template">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                <span aria-hidden="true">×</span></button>
+            <h4 class="modal-title">试题详情</h4>
+        </div>
+        <div class="modal-body">
+            <div class="panel-group" id="according" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-info">
+                    <div class="panel-heading" role="tab" id="content">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" href="#collapseOne"
+                               aria-expanded="true" aria-controls="collapseOne">
+                                用户答案
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
+                         aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            <textarea class="form-control" rows="15"
+                                      placeholder="用户答案">{{userPaper.userAnswer}}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-success">
+                    <div class="panel-heading" role="tab" id="answer">
+                        <h4 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse"
+                               href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                试卷答案
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="answer">
+                        <div class="panel-body">
+                            <textarea class="form-control" rows="12"
+                                      placeholder="试卷答案">{{userPaper.rightAnswer}}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal" ng-click="cancel()">取消</button>
+            <button type="button" class="btn btn-primary" ng-click="ok()">确定</button>
+        </div>
+    </div>
+</script>

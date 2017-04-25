@@ -68,4 +68,6 @@ public interface PaperMapper {
 
 
     int addContent(@Param("paperId") String paperId, @Param("content") String content);
+
+    List<Paper> queryPapersByBatchPaperIds(@Param("paperIds") List<String> userPaperIds);
 }

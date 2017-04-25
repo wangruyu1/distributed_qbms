@@ -17,7 +17,7 @@ angular.module("QBMS.login", ['toaster', 'ngAnimate'])
                             function (data) {
                                 if (data.data.type == 1) {
                                     $window.location.href = "/index_manager.html";
-                                } else if (data.data.type == 3) {
+                                } else if (data.data.type == 2) {
                                     $window.location.href = "/index.html";
                                 }
                             }

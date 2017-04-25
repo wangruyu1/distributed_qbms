@@ -4,6 +4,7 @@ import cn.qtech.constant.UserPaperStatus;
 import cn.qtech.domain.MakePaper;
 import cn.qtech.domain.Paper;
 import cn.qtech.domain.UserPaper;
+import cn.qtech.domain.UserPaperWithBLOBs;
 import cn.qtech.domain.dto.MakePaperDTO;
 import cn.qtech.service.UserPaperService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -44,9 +45,10 @@ public class RabbitReceiver {
         }
         Paper paper = makePaperDTO.getPaper();
         MakePaper makePaper = makePaperDTO.getMakePaper();
-        List<UserPaper> userPapers = new ArrayList<>();
+        String managerId = makePaperDTO.getManagerId();
+        List<UserPaperWithBLOBs> userPapers = new ArrayList<>();
         userIds.forEach(id -> {
-            UserPaper userPaper = new UserPaper();
+            UserPaperWithBLOBs userPaper = new UserPaperWithBLOBs();
             userPaper.setId(UUID.randomUUID().toString());
             userPaper.setTotalTime(makePaper.getTotalTime());
             userPaper.setContent(paper.getContent());
@@ -57,6 +59,7 @@ public class RabbitReceiver {
             userPaper.setTitle(paper.getTitle());
             userPaper.setScore(-1);
             userPaper.setUserId(id);
+            userPaper.setManagerId(managerId);
             userPapers.add(userPaper);
         });
         if (!userPaperService.insertUserPapersByBatch(userPapers)) {

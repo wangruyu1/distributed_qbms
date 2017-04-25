@@ -1,13 +1,13 @@
 package cn.qtech.controller;
 
 import cn.qtech.commopent.LocalMessageSource;
+import cn.qtech.constant.UserPaperStatus;
 import cn.qtech.domain.*;
-import cn.qtech.domain.dto.BaseMessage;
-import cn.qtech.domain.dto.MakePaperDTO;
-import cn.qtech.domain.dto.PaperDTO;
-import cn.qtech.domain.dto.SubjectDTO;
+import cn.qtech.domain.data.UserData;
+import cn.qtech.domain.dto.*;
 import cn.qtech.exception.AppException;
 import cn.qtech.feign.client.UserClient;
+import cn.qtech.feign.client.UserPaperClient;
 import cn.qtech.rabbitmq.RabbitSender;
 import cn.qtech.service.*;
 import cn.qtech.utils.LoginUtil;
@@ -45,6 +45,8 @@ public class PaperController {
     private ManagerUserService managerUserService;
     @Autowired
     private RabbitSender rabbitSender;
+    @Autowired
+    private UserPaperClient userPaperClient;
 
     @RequestMapping(value = "papers", method = RequestMethod.GET)
     public List<PaperDTO> queryAll() {
@@ -76,6 +78,39 @@ public class PaperController {
             paperDTO.setUserId(p.getUserId());
             paperDTO.setUserName(userNames.get(p.getUserId()));
             rtnData.add(paperDTO);
+        });
+        return rtnData;
+    }
+
+    @RequestMapping(value = "/userpapers/commited", method = RequestMethod.GET)
+    public List<UserPaperDTO> queryCommitedUserPapers() {
+        User user = LoginUtil.getLoginUser();
+        String userId = user.getId();
+        List<UserPaperDTO> rtnData = new ArrayList<>();
+        List<UserPaperWithBLOBs> userPapers = userPaperClient.queryCommitedUserPaper(userId, UserPaperStatus.COMMITED.value());
+        //查询用户名,前台汉化
+        List<String> userIds = userPapers.stream().map(UserPaperWithBLOBs::getUserId).collect(Collectors.toList());
+        List<UserData> userDatas = userClient.queryUserNamesByBatchUserIds(userIds);
+        Map<String, String> userNameMap = userDatas.stream().collect(Collectors.toMap(UserData::getUserId, UserData::getUserName));
+        //查询正确答案
+        List<String> userPaperIds = userPapers.stream().map(UserPaperWithBLOBs::getPaperId).collect(Collectors.toList());
+        List<Paper> papers = paperService.queryPapersByBatchPaperIds(userPaperIds);
+        Map<String, String> paperRightAnswerMap = new HashMap<>();
+        papers.forEach(paper -> {
+            paperRightAnswerMap.put(paper.getPaperId(), this.getPaperDetail(paper.getContent()).getAnswer());
+        });
+        userPapers.forEach(userPaper -> {
+            UserPaperDTO tmp = new UserPaperDTO();
+            tmp.setUserPaperId(userPaper.getPaperId());
+            tmp.setUserPaperName(userPaper.getName());
+            tmp.setUserPaperTitle(userPaper.getTitle());
+            tmp.setUserAnswer(userPaper.getContent());
+            tmp.setStartTime(userPaper.getStartTime());
+            tmp.setUserId(userPaper.getUserId());
+            tmp.setUserName(userNameMap.get(userPaper.getUserId()));
+            tmp.setTotalTime(userPaper.getTotalTime());
+            tmp.setRightAnswer(paperRightAnswerMap.get(userPaper.getPaperId()));
+            rtnData.add(tmp);
         });
         return rtnData;
     }

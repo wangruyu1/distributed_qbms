@@ -1,6 +1,6 @@
 <div ng-view>
     <section class="content-header">
-        <h3 class="no-margin">即将开始</h3>
+        <h3 class="no-margin">考试中</h3>
     </section>
 
     <section class="content">
@@ -9,11 +9,11 @@
             <div class="col-xs-12">
                 <div class="box box-solid">
                     <div class="box-header with-border">
-                        <!--<button class="btn btn-app"-->
-                                <!--ng-disabled="selectedRow==undefined"-->
-                                <!--ng-click="getPaperDetail()">-->
-                            <!--<i class="fa fa-commenting"></i> 试卷详情-->
-                        <!--</button>-->
+                        <button class="btn btn-app"
+                                ng-disabled="selectedRow==undefined"
+                                ng-click="startExaming()">
+                            <i class="fa fa-hourglass-2"></i> 开始考试
+                        </button>
                     </div><!-- /.box-header -->
                     <div class="box-body">
                         <div ag-grid="gridOptions" class="ag-blue" style="height: 100%;"></div>

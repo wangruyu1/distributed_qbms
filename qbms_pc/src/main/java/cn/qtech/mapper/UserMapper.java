@@ -1,6 +1,7 @@
 package cn.qtech.mapper;
 
 import cn.qtech.domain.User;
+import cn.qtech.domain.data.UserData;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -62,4 +63,6 @@ public interface UserMapper {
     List<User> queryUsersByBatchIds(@Param("ids") List<String> ids);
 
     int modifyPassword(@Param("name") String name, @Param("password") String password);
+
+    List<UserData> queryUserNamesByBatchUserIds(@Param("userIds") List<String> userIds);
 }
