@@ -16,6 +16,9 @@ import java.util.List;
  */
 @FeignClient(name = "qbms-pc", fallback = UserClientHystrix.class)
 public interface UserClient {
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public User getCurrentUser();
+
     @RequestMapping(value = "/users/ids", method = RequestMethod.POST)
     public List<User> queryUsersByBatchIds(@RequestParam(value = "userIds") List<String> userIds);
 

@@ -40,12 +40,12 @@ public class UserController {
     }
 
     @RequestMapping(value = "user/password", method = RequestMethod.POST)
-    public BaseMessage checkPassword(@RequestParam("password") String password) {
+    public BaseMessage checkPassword(@RequestBody User userModel) {
         User user = LoginUtil.getLoginUser();
         if (user == null) {
             return new BaseMessage(401, false, localMessageSource.getMessage("user.not.login"));
         }
-        if (!user.getPassword().equals(password)) {
+        if (!user.getPassword().equals(userModel.getPassword())) {
             return new BaseMessage(402, false, localMessageSource.getMessage("user.passowrd.check.failed"));
         }
         request.getSession(false).removeAttribute("lockScreen");
@@ -61,8 +61,9 @@ public class UserController {
     public List<User> queryUsersByBatchIds(@RequestParam("userIds") List<String> userIds) {
         return userService.queryUsersByBatchIds(userIds);
     }
+
     @RequestMapping(value = "/user/names", method = RequestMethod.GET)
-    public List<UserData> queryUserNamesByBatchUserIds(@RequestParam("userIds")List<String> userIds){
+    public List<UserData> queryUserNamesByBatchUserIds(@RequestParam("userIds") List<String> userIds) {
         return userService.queryUserNamesByBatchUserIds(userIds);
     }
 }

@@ -15,6 +15,10 @@ import java.util.List;
  */
 @Component
 public class UserClientHystrix implements UserClient {
+    @Override
+    public User getCurrentUser() {
+        return new User();
+    }
 
     @Override
     public List<User> queryUsersByBatchIds(List<String> userIds) {

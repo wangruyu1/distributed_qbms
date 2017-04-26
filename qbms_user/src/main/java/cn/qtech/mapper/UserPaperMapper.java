@@ -75,4 +75,8 @@ public interface UserPaperMapper {
     boolean changeUserPaperStatusToCommited(@Param("now") Date date, @Param("status") int value);
 
     List<UserPaperWithBLOBs> queryUserPaperByManagerAndStatus(@Param("managerId") String managerId, @Param("status") int status);
+
+    int grade(@Param("userPaperId") String userPaperId, @Param("score") int score, @Param("status") int value);
+
+    boolean modifyUserPaperStatusById(@Param("userPaperId") String userPaperId, @Param("status") int value);
 }

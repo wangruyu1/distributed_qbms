@@ -2,7 +2,6 @@ package cn.qtech.service.impl;
 
 import cn.qtech.domain.UserPaper;
 import cn.qtech.domain.UserPaperWithBLOBs;
-import cn.qtech.domain.dto.UserPaperDTO;
 import cn.qtech.mapper.UserPaperMapper;
 import cn.qtech.service.UserPaperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +71,21 @@ public class UserPaperServiceImpl implements UserPaperService {
 
     @Override
     public List<UserPaperWithBLOBs> queryUserPaperByManagerAndStatus(String managerId, int status) {
-        return userPaperMapper.queryUserPaperByManagerAndStatus(managerId,status);
+        return userPaperMapper.queryUserPaperByManagerAndStatus(managerId, status);
+    }
+
+    @Override
+    public boolean grade(String userPaperId, int score, int status) {
+        return userPaperMapper.grade(userPaperId, score, status) > 0;
+    }
+
+    @Override
+    public boolean modifyUserPaperStatusById(String userPaperId, int value) {
+        return userPaperMapper.modifyUserPaperStatusById(userPaperId, value);
+    }
+
+    @Override
+    public UserPaperWithBLOBs queryUserPaperById(String userPaperId) {
+        return userPaperMapper.selectByPrimaryKey(userPaperId);
     }
 }

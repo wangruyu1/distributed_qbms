@@ -8,12 +8,48 @@ import java.util.Date;
  */
 public class UserPaperDTO {
     private String userPaperId;
+    private String name;
+    private String title;
     private Date createTime;
     private Date startTime;
     private int totalTime;
     private String userId;
     private String userName;
     private int score;
+    private String managerId;
+    private String managerName;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(String managerId) {
+        this.managerId = managerId;
+    }
+
+    public String getManagerName() {
+        return managerName;
+    }
+
+    public void setManagerName(String managerName) {
+        this.managerName = managerName;
+    }
 
     public String getUserPaperId() {
         return userPaperId;

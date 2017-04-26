@@ -8,15 +8,16 @@ angular.module("QBMS")
 
         $scope.ok = function () {
             Service.checkpassword.save({
-                checkPasswordForLockScreen: true,
                 password: $scope.password
-            }, {}, function (data) {
+            }, function (data) {
                 if (data.code == 401) {
                     window.location.href = "/ui/login.html";
                 } else if (data.code == 402) {
-                    toaster.pop("error", "密码错误");
-                } else {
+                    toaster.pop("error", data.message);
+                } else if ($scope.user.type == 2) {
                     window.top.location.href = "/ui/index.html";
+                } else if ($scope.user.type == 1) {
+                    window.top.location.href = "/ui/index_manager.html";
                 }
             })
         }

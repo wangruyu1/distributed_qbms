@@ -8,6 +8,7 @@ import java.util.Date;
  */
 public class UserPaperDTO {
     private String userPaperId;
+    private String paperId;
     private String userPaperName;
     private String userPaperTitle;
     private Date createTime;
@@ -18,6 +19,14 @@ public class UserPaperDTO {
     private int score;
     private String userAnswer;
     private String rightAnswer;
+
+    public String getPaperId() {
+        return paperId;
+    }
+
+    public void setPaperId(String paperId) {
+        this.paperId = paperId;
+    }
 
     public String getUserPaperTitle() {
         return userPaperTitle;

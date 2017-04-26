@@ -22,4 +22,10 @@ public interface UserPaperService extends BaseService<UserPaper> {
     boolean changeUserPaperStatusToCommited(Date date, int value);
 
     List<UserPaperWithBLOBs> queryUserPaperByManagerAndStatus(String managerId, int status);
+
+    boolean grade(String userPaperId, int score,int status);
+
+    boolean modifyUserPaperStatusById(String userPaperId, int value);
+
+    UserPaperWithBLOBs queryUserPaperById(String userPaperId);
 }

@@ -20,8 +20,8 @@ angular.module("QBMS.services", ['ngResource'])
                     $window.top.location.href = '/login.html';
                     // return null;
                 } else if (response.data.result == false) {
-                    toaster.pop('error', response.data.message);
-                    return null;
+                    // toaster.pop('error', response.data.message);
+                    // return null;
                 }
                 return response || $q.when(response);
             },
@@ -82,8 +82,10 @@ angular.module("QBMS.services", ['ngResource'])
 
             //userpaper
             userpapers: $resource(user + "/userpapers/status=:status", {}, {}),
+            userpaper: $resource(user + "/userpaper/:id", {}, {}),
             commitedUserPapers: $resource(manager + "/userpapers/commited", {}, {}),
-            commitUserPaper: $resource(user + "/userPaper/:id", {}, {modify: {method: 'PUT'}})
+            commitUserPaper: $resource(user + "/userPaper/:id", {}, {modify: {method: 'PUT'}}),
+            grade: $resource(user + "/userPaper/:id", {}, {}),
         };
         return service;
     })

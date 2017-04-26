@@ -307,4 +307,19 @@
         and
         status = #{status,jdbcType=INTEGER}
     </select>
+    <update id="grade">
+        update user_paper
+        set
+        score = #{score,jdbcType=INTEGER},
+        status = #{status,jdbcType=INTEGER}
+        where
+        id = #{userPaperId,jdbcType=VARCHAR}
+    </update>
+    <update id="modifyUserPaperStatusById">
+        update user_paper
+        set
+        score = #{score,jdbcType=INTEGER}
+        where
+        id = #{userPaperId,jdbcType=VARCHAR}
+    </update>
 </mapper>

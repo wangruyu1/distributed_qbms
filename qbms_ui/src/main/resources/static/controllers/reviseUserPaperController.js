@@ -64,3 +64,25 @@ angular.module("QBMS.controllers")
             });
         }
     })
+    .controller('userPaperDetailCtrl', function ($scope, $uibModalInstance, toaster, selectedRow, Service,$state) {
+        $scope.userPaper = selectedRow;
+        $scope.userPaper.score = undefined;
+        $scope.ok = function () {
+            if ($scope.userPaper.score == undefined || $scope.userPaper.score.trim() == "") {
+                toaster.pop('warn', '请打分');
+                return;
+            }
+            Service.grade.save({id: $scope.userPaper.userPaperId, score: $scope.userPaper.score}, {}, function (data) {
+                if (data.result == true) {
+                    toaster.pop('success', data.message);
+                    $state.reload();
+                    $scope.cancel();
+                } else {
+                    toaster.pop('error', data.message);
+                }
+            })
+        }
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss();
+        }
+    })

@@ -101,10 +101,11 @@ public class PaperController {
         });
         userPapers.forEach(userPaper -> {
             UserPaperDTO tmp = new UserPaperDTO();
-            tmp.setUserPaperId(userPaper.getPaperId());
+            tmp.setPaperId(userPaper.getPaperId());
+            tmp.setUserPaperId(userPaper.getId());
             tmp.setUserPaperName(userPaper.getName());
             tmp.setUserPaperTitle(userPaper.getTitle());
-            tmp.setUserAnswer(userPaper.getContent());
+            tmp.setUserAnswer(userPaper.getAnswer());
             tmp.setStartTime(userPaper.getStartTime());
             tmp.setUserId(userPaper.getUserId());
             tmp.setUserName(userNameMap.get(userPaper.getUserId()));

@@ -11,11 +11,6 @@
                     <div class="box-header with-border">
                         <button class="btn btn-app"
                                 ng-disabled="selectedRow==undefined"
-                                ng-click="deletePaper()">
-                            <i class="fa  fa-remove"></i> 删除
-                        </button>
-                        <button class="btn btn-app"
-                                ng-disabled="selectedRow==undefined"
                                 ng-click="getPaperDetail()">
                             <i class="fa fa-commenting"></i> 试卷详情
                         </button>
@@ -30,3 +25,55 @@
         <!-- Main row -->
     </section><!-- /.content -->
 </div>
+
+<script id="paperDetail.html" type="text/ng-template">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                <span aria-hidden="true">×</span></button>
+            <h4 class="modal-title">试题详情</h4>
+        </div>
+        <div class="modal-body">
+            <div class="panel-group" id="according" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-info">
+                    <div class="panel-heading" role="tab" id="content">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" href="#collapseOne"
+                               aria-expanded="true" aria-controls="collapseOne">
+                                试卷内容
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
+                         aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            <textarea class="form-control" rows="15"
+                                      placeholder="试卷内容">{{paperDetail.content}}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-success">
+                    <div class="panel-heading" role="tab" id="answer">
+                        <h4 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse"
+                               href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                试卷正确答案
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="answer">
+                        <div class="panel-body">
+                            <textarea class="form-control" rows="12"
+                                      placeholder="试卷答案">{{paperDetail.rightAnswer}}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            tip:找出错误的原因才能吸取教训...
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal" ng-click="cancel()">取消</button>
+            <button type="button" class="btn btn-primary" ng-click="ok()">确定</button>
+        </div>
+    </div>
+</script>

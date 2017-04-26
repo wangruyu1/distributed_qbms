@@ -1,6 +1,6 @@
 package cn.qtech.feign.hystrix;
 
-import cn.qtech.domain.Paper;
+import cn.qtech.domain.dto.PaperDTO;
 import cn.qtech.feign.PaperClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Component
 public class PaperClientHystrix implements PaperClient {
     @Override
-    public Paper queryPaperById(@PathVariable("paperId") String paperId) {
-        return new Paper();
+    public PaperDTO queryPaperById(@PathVariable("paperId") String paperId) {
+        return new PaperDTO();
     }
 }

@@ -12,7 +12,7 @@
                         <button class="btn btn-app"
                                 ng-disabled="selectedRow==undefined"
                                 ng-click="correctUserPaper()">
-                            <i class="fa fa-commenting"></i> 批改
+                            <i class="fa fa-check-square-o"></i> 批改
                         </button>
                     </div><!-- /.box-header -->
                     <div class="box-body">
@@ -31,8 +31,14 @@
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
-                <span aria-hidden="true">×</span></button>
-            <h4 class="modal-title">试题详情</h4>
+                <!--<span aria-hidden="true">×</span>-->
+            </button>
+            <h4 class="modal-title">试题详情
+            </h4>
+            <span class="pull-right">
+                <label for="score">得分:</label>
+                <input type="text" id="score" ng-model="userPaper.score"/>
+            </span>
         </div>
         <div class="modal-body">
             <div class="panel-group" id="according" role="tablist" aria-multiselectable="true">

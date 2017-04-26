@@ -1,6 +1,6 @@
 package cn.qtech.feign;
 
-import cn.qtech.domain.Paper;
+import cn.qtech.domain.dto.PaperDTO;
 import cn.qtech.feign.hystrix.PaperClientHystrix;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @FeignClient(value = "qbms-manager", fallback = PaperClientHystrix.class)
 public interface PaperClient {
-    @RequestMapping(value = "/paper/{paperId}", method = RequestMethod.GET)
-    public Paper queryPaperById(@PathVariable("paperId") String paperId);
+    @RequestMapping(value = "/paper/{id}", method = RequestMethod.GET)
+    public PaperDTO queryPaperById(@PathVariable("id") String paperId);
 }

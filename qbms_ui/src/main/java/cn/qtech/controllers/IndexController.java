@@ -3,7 +3,7 @@ package cn.qtech.controllers;
 import cn.qtech.constant.UserType;
 import cn.qtech.domain.User;
 import cn.qtech.exception.AppException;
-import cn.qtech.feign.UserClient;
+import cn.qtech.feign.client.UserClient;
 import cn.qtech.utils.LoginUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
