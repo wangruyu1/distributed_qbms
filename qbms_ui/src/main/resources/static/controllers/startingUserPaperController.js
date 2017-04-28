@@ -7,7 +7,7 @@ angular.module("QBMS.controllers")
         $scope.selectedRow = undefined;
         //数据表格设置
         var columnDefs = [
-            {headerName: "编号", field: "id", pinned: 'left'},
+            {headerName: "编号", field: "userPaperId", pinned: 'left'},
             {headerName: "名称", field: "name"},
             {
                 headerName: "开始时间", field: "startTime", cellRenderer: function (param) {

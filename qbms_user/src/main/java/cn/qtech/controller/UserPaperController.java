@@ -9,13 +9,18 @@ import cn.qtech.domain.data.UserData;
 import cn.qtech.domain.dto.BaseMessage;
 import cn.qtech.domain.dto.PaperDTO;
 import cn.qtech.domain.dto.UserPaperDTO;
+import cn.qtech.exception.AppException;
 import cn.qtech.feign.PaperClient;
 import cn.qtech.feign.client.UserClient;
+import cn.qtech.model.TokenModel;
 import cn.qtech.service.UserPaperService;
 import cn.qtech.utils.LoginUtil;
+import cn.qtech.utils.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -58,6 +63,7 @@ public class UserPaperController {
             tmp.setTitle(userPaper.getTitle());
             tmp.setScore(userPaper.getScore());
             tmp.setUserPaperId(userPaper.getId());
+            tmp.setContent(userPaper.getContent());
             rtnData.add(tmp);
         });
         return rtnData;
@@ -81,9 +87,15 @@ public class UserPaperController {
     }
 
     @RequestMapping(value = "/userPaper/{id}", method = RequestMethod.PUT)
-    public BaseMessage commitAnswer(@PathVariable("id") String paperId, @RequestBody UserPaperWithBLOBs userPaper) {
+    public BaseMessage commitAnswer(HttpServletRequest request, @PathVariable("id") String paperId, @RequestBody UserPaperWithBLOBs userPaper, @RequestParam("token") String token) throws AppException {
+        HttpSession session = request.getSession(false);
+        String serverToken = session.getAttribute("examCommitedToken").toString();
+        if (serverToken == null) {
+            return new BaseMessage(400, false, localMessageSource.getMessage("userpaper.not.commit.more"));
+        }
         userPaper.setStatus(UserPaperStatus.COMMITED.value());
         if (userPaperService.modifyUserPaperForCommit(userPaper)) {
+            request.getSession(false).removeAttribute("examCommitedToken");
             return new BaseMessage(200, true, localMessageSource.getMessage("userpaper.commit.success"));
         }
         return new BaseMessage(201, false, localMessageSource.getMessage("userpaper.commit.failed"));
@@ -95,5 +107,13 @@ public class UserPaperController {
             return new BaseMessage(200, true, localMessageSource.getMessage("user.grade.success"));
         }
         return new BaseMessage(201, false, localMessageSource.getMessage("user.grade.failed"));
+    }
+
+    @RequestMapping(value = "userpaper/token", method = RequestMethod.GET)
+    public TokenModel getToken(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        String token = TokenUtil.getToken();
+        session.setAttribute("examCommitedToken", token);
+        return new TokenModel(token);
     }
 }

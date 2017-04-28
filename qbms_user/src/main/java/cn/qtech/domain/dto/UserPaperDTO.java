@@ -18,6 +18,15 @@ public class UserPaperDTO {
     private int score;
     private String managerId;
     private String managerName;
+    private String content;
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 
     public String getName() {
         return name;

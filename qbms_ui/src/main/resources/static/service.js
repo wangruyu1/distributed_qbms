@@ -86,6 +86,7 @@ angular.module("QBMS.services", ['ngResource'])
             commitedUserPapers: $resource(manager + "/userpapers/commited", {}, {}),
             commitUserPaper: $resource(user + "/userPaper/:id", {}, {modify: {method: 'PUT'}}),
             grade: $resource(user + "/userPaper/:id", {}, {}),
+            userToken: $resource(user + "/userpaper/token", {}, {}),
         };
         return service;
     })

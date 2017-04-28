@@ -67,6 +67,9 @@ public class PaperController {
         }
         List<PaperDTO> rtnData = new ArrayList<>();
         List<Paper> papers = paperService.queryAll();
+        if (papers == null || papers.size() == 0) {
+            return null;
+        }
 
         List<String> categoryIds = papers.stream().map(Paper::getPaperCategoryId).collect(Collectors.toList());
         List<String> difficultyIds = papers.stream().map(Paper::getPaperDifficultyId).collect(Collectors.toList());
@@ -112,6 +115,9 @@ public class PaperController {
 //        }
         List<UserPaperDTO> rtnData = new ArrayList<>();
         List<UserPaperWithBLOBs> userPapers = userPaperClient.queryCommitedUserPaper(userId, UserPaperStatus.COMMITED.value());
+        if (userPapers == null || userPapers.size() == 0) {
+            return null;
+        }
         //查询用户名,前台汉化
         List<String> userIds = userPapers.stream().map(UserPaperWithBLOBs::getUserId).collect(Collectors.toList());
         List<UserData> userDatas = userClient.queryUserNamesByBatchUserIds(userIds);
