@@ -86,3 +86,7 @@ logging:
     cn.qtech.mapper: DEBUG
 security:
   sessions: never
+#自定义rediskey
+rediskey:
+  manager:
+    redisSingalManagerPapsersKey: -papersForSingalManager

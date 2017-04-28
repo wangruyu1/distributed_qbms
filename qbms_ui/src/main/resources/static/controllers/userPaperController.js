@@ -42,8 +42,8 @@ angular.module("QBMS.controllers")
         //方法定义
         $scope.getPaperDetail = function () {
             $uibModal.open({
-                templateUrl: 'paperDetail.html',
-                controller: 'paperDetailCtrl',
+                templateUrl: 'userPaperDetail.html',
+                controller: 'userPaperDetailCtrl',
                 size: 'lg',
                 resolve: {
                     selectedRow: $scope.selectedRow,
@@ -70,7 +70,7 @@ angular.module("QBMS.controllers")
         }
 
     })
-    .controller("paperDetailCtrl", function ($scope, toaster, $uibModalInstance, Service, selectedRow) {
+    .controller("userPaperDetailCtrl", function ($scope, toaster, $uibModalInstance, Service, selectedRow) {
         $scope.paper = selectedRow;
         $scope.paperDetail = {
             content: '',

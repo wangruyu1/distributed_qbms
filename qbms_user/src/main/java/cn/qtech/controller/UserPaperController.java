@@ -42,6 +42,9 @@ public class UserPaperController {
         String userId = user.getId();
         List<UserPaperDTO> rtnData = new ArrayList<>();
         List<UserPaperWithBLOBs> userPapers = userPaperService.queryAllByUserIdAndStatus(userId, status);
+        if (userPapers == null || userPapers.size() == 0) {
+            return null;
+        }
         List<String> userIds = userPapers.stream().map(UserPaperWithBLOBs::getManagerId).collect(Collectors.toList());
         List<UserData> userDatas = userClient.queryUserNamesByBatchUserIds(userIds);
         Map<String, String> userNameMap = userDatas.stream().collect(Collectors.toMap(UserData::getUserId, UserData::getUserName));

@@ -8,11 +8,14 @@ import cn.qtech.domain.dto.*;
 import cn.qtech.exception.AppException;
 import cn.qtech.feign.client.UserClient;
 import cn.qtech.feign.client.UserPaperClient;
+import cn.qtech.propertymodel.ManagerKey;
 import cn.qtech.rabbitmq.RabbitSender;
 import cn.qtech.service.*;
 import cn.qtech.utils.LoginUtil;
 import cn.qtech.utils.RandomNumberUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,9 +50,21 @@ public class PaperController {
     private RabbitSender rabbitSender;
     @Autowired
     private UserPaperClient userPaperClient;
+    @Autowired
+    private RedisTemplate redisTemplate;
+    @Autowired
+    private ManagerKey managerKey;
 
     @RequestMapping(value = "papers", method = RequestMethod.GET)
     public List<PaperDTO> queryAll() {
+        User user = LoginUtil.getLoginUser();
+        StringBuilder redisKey = new StringBuilder(user.getId());
+        redisKey.append(managerKey.getRedisSingalManagerPapsersKey());
+        //读取redis数据
+        ValueOperations<String, List<PaperDTO>> valueOperations = redisTemplate.opsForValue();
+        if (redisTemplate.hasKey(redisKey.toString())) {
+            return valueOperations.get(redisKey.toString());
+        }
         List<PaperDTO> rtnData = new ArrayList<>();
         List<Paper> papers = paperService.queryAll();
 
@@ -79,6 +94,8 @@ public class PaperController {
             paperDTO.setUserName(userNames.get(p.getUserId()));
             rtnData.add(paperDTO);
         });
+        //将数据放入缓存
+        valueOperations.set(redisKey.toString(), rtnData);
         return rtnData;
     }
 
@@ -86,6 +103,13 @@ public class PaperController {
     public List<UserPaperDTO> queryCommitedUserPapers() {
         User user = LoginUtil.getLoginUser();
         String userId = user.getId();
+        //读取redis数据
+//        StringBuilder redisKey = new StringBuilder(userId);
+//        redisKey.append("-papersForCorrect");
+//        ValueOperations<String, List<UserPaperDTO>> valueOperations = redisTemplate.opsForValue();
+//        if (redisTemplate.hasKey(redisKey.toString())) {
+//            return valueOperations.get(redisKey.toString());
+//        }
         List<UserPaperDTO> rtnData = new ArrayList<>();
         List<UserPaperWithBLOBs> userPapers = userPaperClient.queryCommitedUserPaper(userId, UserPaperStatus.COMMITED.value());
         //查询用户名,前台汉化
@@ -113,6 +137,7 @@ public class PaperController {
             tmp.setRightAnswer(paperRightAnswerMap.get(userPaper.getPaperId()));
             rtnData.add(tmp);
         });
+//        valueOperations.set(redisKey.toString(), rtnData);
         return rtnData;
     }
 
@@ -134,6 +159,8 @@ public class PaperController {
     @RequestMapping(value = "paper", method = RequestMethod.POST)
     public BaseMessage addPaper(@RequestBody Paper paper) {
         if (paperService.insert(paper)) {
+            //操作数据库成功,删除缓存.
+            this.deleteKeyForModifyPaper();
             return new BaseMessage(200, true, localMessageSource.getMessage("paper.add.success"));
         }
         return new BaseMessage(201, false, localMessageSource.getMessage("paper.add.failed"));
@@ -142,6 +169,8 @@ public class PaperController {
     @RequestMapping(value = "paper/{id}", method = RequestMethod.PUT)
     public BaseMessage modifyPaper(@PathVariable("id") String id, @RequestBody Paper paper) {
         if (paperService.update(paper)) {
+            //操作数据库成功,删除缓存.
+            this.deleteKeyForModifyPaper();
             return new BaseMessage(200, true, localMessageSource.getMessage("paper.modify.success"));
         }
         return new BaseMessage(201, false, localMessageSource.getMessage("paper.modify.failed"));
@@ -150,6 +179,8 @@ public class PaperController {
     @RequestMapping(value = "paper/{id}", method = RequestMethod.DELETE)
     public BaseMessage deletePaper(@PathVariable("id") String id) {
         if (paperService.delete(id)) {
+            //操作数据库成功,删除缓存.
+            this.deleteKeyForModifyPaper();
             return new BaseMessage(200, true, localMessageSource.getMessage("paper.delete.success"));
         }
         return new BaseMessage(201, false, localMessageSource.getMessage("paper.delete.failed"));
@@ -176,15 +207,16 @@ public class PaperController {
         if (user == null) {
             throw new AppException("user.not.login");
         }
+        //TODO:()
         SubjectWithBLOBs subject = new SubjectWithBLOBs();
-        subject.setUserId(subject.getUserId());
+        subject.setUserId(subjectDTO.getUserId());
         subject.setName(subjectDTO.getName());
         subject.setSubjectCategoryId(subjectDTO.getCategoryId());
         subject.setSubjectDifficultyId(subjectDTO.getDifficultyId());
         subject.setContent(subjectDTO.getContent());
         subject.setAnswer(subjectDTO.getAnswer());
         //试题存在
-        if (subjectDTO.getSubjectId() == null || subjectDTO.getSubjectId().equals("")) {
+        if (subjectDTO.getSubjectId() != null && !"".equals(subjectDTO.getSubjectId())) {
             subject.setSubjectId(subjectDTO.getSubjectId());
         } else {
             //添加试题
@@ -205,6 +237,8 @@ public class PaperController {
             paper.setContent("");
         }
         if (paperService.addContent(subjectDTO.getPaperId(), paper.getContent() + subjectDTO.getContent())) {
+            //试题成功添加到试卷才删除缓存.
+            this.deleteKeyForModifyPaper();
             return new BaseMessage(200, true, "subject.add.success");
         }
         return new BaseMessage(201, false, "subject.add.failed");
@@ -236,8 +270,12 @@ public class PaperController {
         }
         Paper paper = paperService.queryById(subjectDTO.getPaperId());
         if (!paperService.addContent(subjectDTO.getPaperId(), paper.getContent() + contentStr)) {
+            //试题成功添加到试卷才删除缓存.
+            this.deleteKeyForModifyPaper();
             return new BaseMessage(201, false, localMessageSource.getMessage("subject.add.failed"));
         }
+        //添加数据库成功,删除缓存.
+        this.deleteKeyForModifyPaper();
         return new BaseMessage(200, true, localMessageSource.getMessage("subject.add.success"));
     }
 
@@ -335,6 +373,18 @@ public class PaperController {
             paper.setAnswer(bigSubjectAnswer.toString());
         }
         return paper;
+    }
+
+    private void deleteKeyForModifyPaper() {
+        User user = LoginUtil.getLoginUser();
+        StringBuilder redisKey = new StringBuilder(user.getId());
+        redisKey.append(managerKey.getRedisSingalManagerPapsersKey());
+        if (!redisTemplate.hasKey(redisKey.toString())) {
+            return;
+        }
+        //读取redis数据
+        ValueOperations<String, List<PaperDTO>> valueOperations = redisTemplate.opsForValue();
+        redisTemplate.delete(redisKey.toString());
     }
 
 }

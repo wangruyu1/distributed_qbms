@@ -61,6 +61,7 @@ public class SubjectController {
             subject.setContent(s.getContent());
             subject.setAnswer(s.getAnswer());
             subject.setName(s.getName());
+            subject.setUserId(s.getUserId());
             rtnData.add(subject);
         });
         return rtnData;
