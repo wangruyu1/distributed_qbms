@@ -5,7 +5,7 @@ angular.module("QBMS.controllers")
         $scope.user = {};
         $scope.selectedRow = undefined;
         var columnDefs = [
-            {headerName: "编号", field: "id", pinned: 'left'},
+            {headerName: "编号", field: "userPaperId", pinned: 'left'},
             {headerName: "名称", field: "name"},
             {
                 headerName: "开始时间", field: "startTime", cellRenderer: function (param) {
@@ -13,7 +13,7 @@ angular.module("QBMS.controllers")
             }
             },
             {headerName: "总用时(分钟)", field: "totalTime"},
-            {headerName: "出题人", field: "managerId"},
+            {headerName: "出题人", field: "managerName"},
         ];
         $scope.gridOptions = {
             columnDefs: columnDefs,
