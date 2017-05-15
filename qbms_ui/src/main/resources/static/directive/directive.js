@@ -50,6 +50,8 @@ angular.module("QBMS.direcetive", [])
     //                 });
     //
     //                 element.on('click', function () {    //click触发日期框
+    //                     var date = $("#date-timepicker");
+    //                     var x = attrs.dateid;
     //                     $("#date-" + attrs.dateid).datetimepicker({
     //                         format: attrs.format || 'Y/m/d h:i',   //格式
     //                         onClose: function () {                   //关闭日期框时手动触发change事件
@@ -69,7 +71,7 @@ angular.module("QBMS.direcetive", [])
     //             }
     //         }
     //     }
-    // })
+    // });
 
 
 ;

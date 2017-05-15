@@ -110,6 +110,11 @@
         <form class="form-horizontal" name="paperForm">
             <div class="form-group">
                 <label for="startTime" class="col-sm-2 control-label">开始时间:</label>
+
+                <!--整合jquery-->
+                <!--<datetimepicker dateID="timepicker" ng-model="paper.startTime" format="Y/m/d h:i"-->
+                                <!--class="form-control"></datetimepicker>-->
+
                 <div class="input-group date col-sm-5">
                     <div class="dropdown">
                         <a class="dropdown-toggle" id="dropdown" role="button" data-toggle="dropdown" data-target="#"
@@ -118,6 +123,8 @@
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                 <span type="text" id="startTime" name="startTime" class="form-control">{{paper.startTime | date:"yyyy年MM月dd日 h:mma"}}</span>
                             </div>
+                            <!--<div uib-datepicker ng-model="paper.startTime" class="well well-sm"-->
+                                 <!--datepicker-options="options"></div>-->
                         </a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                             <datetimepicker data-ng-model="paper.startTime"

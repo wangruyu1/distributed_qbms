@@ -20,6 +20,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -99,6 +100,7 @@ public class PaperController {
         });
         //将数据放入缓存
         valueOperations.set(redisKey.toString(), rtnData);
+        redisTemplate.expire(redisKey.toString(), managerKey.getExpireTime(), TimeUnit.MINUTES);
         return rtnData;
     }
 

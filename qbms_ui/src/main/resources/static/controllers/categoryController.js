@@ -1,11 +1,11 @@
-angular.module("QBMS.controllers",[])
+angular.module("QBMS.controllers", [])
 
     .controller("CategoryController", function ($scope, Service, $uibModal) {
         $scope.categories = [];
         $scope.selectedRow = undefined;
         var columnDefs = [
             {headerName: "编号", field: "categoryId", pinned: 'left'},
-            {headerName: "类型", field: "name"},
+            {headerName: "类型", field: "name", pinned: 'left'},
             {headerName: "描述", field: "description"},
         ];
         $scope.gridOptions = {

@@ -43,7 +43,7 @@ angular.module("QBMS.controllers")
         $scope.addCategory = function () {
             var modalInstance = $uibModal.open({
                 templateUrl: 'addCategory.html',
-                controller: 'addCategoryCtrl',
+                controller: 'addSubjectCategoryCtrl',
                 scope: $scope,
                 resolve: {}
             });
@@ -52,7 +52,7 @@ angular.module("QBMS.controllers")
         $scope.modifyCategory = function () {
             var modalInstance = $uibModal.open({
                 templateUrl: 'modifyCategory.html',
-                controller: 'modifyCategoryCtrl',
+                controller: 'modifySubjectCategoryCtrl',
                 resolve: {
                     selectedRow: $scope.selectedRow,
                 }
@@ -62,7 +62,7 @@ angular.module("QBMS.controllers")
         $scope.deleteCategory = function () {
             var modalInstance = $uibModal.open({
                 templateUrl: 'deleteCategory.html',
-                controller: 'deleteCategoryCtrl',
+                controller: 'deleteSubjectCategoryCtrl',
                 resolve: {
                     selectedRow: $scope.selectedRow,
                 }
@@ -70,7 +70,7 @@ angular.module("QBMS.controllers")
         }
 
     })
-    .controller("addCategoryCtrl", function ($scope, Service, $uibModalInstance, toaster, $state) {
+    .controller("addSubjectCategoryCtrl", function ($scope, Service, $uibModalInstance, toaster, $state) {
         $scope.category = {
             name: '',
             description: '',
@@ -90,7 +90,7 @@ angular.module("QBMS.controllers")
             });
         }
     })
-    .controller("modifyCategoryCtrl", function ($scope, Service, $uibModalInstance, toaster, $state, selectedRow) {
+    .controller("modifySubjectCategoryCtrl", function ($scope, Service, $uibModalInstance, toaster, $state, selectedRow) {
         $scope.category = selectedRow;
 
         $scope.cancel = function () {
@@ -108,7 +108,7 @@ angular.module("QBMS.controllers")
             });
         }
     })
-    .controller("deleteCategoryCtrl", function ($scope, Service, $uibModalInstance, toaster, $state, selectedRow) {
+    .controller("deleteSubjectCategoryCtrl", function ($scope, Service, $uibModalInstance, toaster, $state, selectedRow) {
         $scope.category = selectedRow;
 
         $scope.cancel = function () {

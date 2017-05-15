@@ -11,6 +11,15 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "rediskey.manager")
 public class ManagerKey {
     private String redisSingalManagerPapsersKey;
+    private Integer expireTime;
+
+    public Integer getExpireTime() {
+        return expireTime;
+    }
+
+    public void setExpireTime(Integer expireTime) {
+        this.expireTime = expireTime;
+    }
 
     public String getRedisSingalManagerPapsersKey() {
         return redisSingalManagerPapsersKey;

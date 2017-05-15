@@ -12,7 +12,8 @@ spring:
     name: qbms-manager
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/qbms?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://localhost:3306/qbms_manager?useUnicode=true&characterEncoding=utf-8&useSSL=false
+#    url: jdbc:mysql://localhost:3306/qbms?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
     password: wangruyu
   jmx:
@@ -90,3 +91,4 @@ security:
 rediskey:
   manager:
     redisSingalManagerPapsersKey: -papersForSingalManager
+    expireTime: 30

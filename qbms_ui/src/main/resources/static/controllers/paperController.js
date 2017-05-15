@@ -120,17 +120,17 @@ angular.module("QBMS.controllers")
             });
         }
     })
-    .controller("makePaperCtrl", function ($scope, $uibModalInstance, toaster, Service, $document,selectedRow) {
+    .controller("makePaperCtrl", function ($scope, $uibModalInstance, toaster, Service, $document, selectedRow) {
         $scope.paper = {
-            'startTime': '',
-            'paperId': selectedRow.paperId,
-            'totalTime': undefined,
+            startTime: new Date(),
+            paperId: selectedRow.paperId,
+            totalTime: undefined,
         };
         $scope.cancel = function () {
             $uibModalInstance.dismiss();
         }
         $scope.ok = function () {
-            Service.makePaper.save({id:$scope.paper.paperId}, $scope.paper, function (data) {
+            Service.makePaper.save({id: $scope.paper.paperId}, $scope.paper, function (data) {
                 if (data.result == true) {
                     toaster.pop('success', data.message);
                     $scope.cancel();
@@ -139,4 +139,5 @@ angular.module("QBMS.controllers")
                 }
             })
         }
+
     })
