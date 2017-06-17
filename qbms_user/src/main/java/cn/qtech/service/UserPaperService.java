@@ -28,4 +28,6 @@ public interface UserPaperService extends BaseService<UserPaper> {
     boolean modifyUserPaperStatusById(String userPaperId, int value);
 
     UserPaperWithBLOBs queryUserPaperById(String userPaperId);
+
+    boolean changeFinishedExams(int currentStatus, int value);
 }

@@ -24,6 +24,7 @@ public class TimedTask {
     public void changeUserPaperStatus() {
         LOGGER.info("修改userpaper状态正在执行...");
         userPaperService.changeUserPaperStatus(DateUtil.getCommonDate(), UserPaperStatus.BEGINING.value());
+//        userPaperService.changeFinishedExams(UserPaperStatus.NOTBEGIN.value(),UserPaperStatus.FINISHED.value());
         userPaperService.changeUserPaperStatusToCommited(DateUtil.getCommonDate(), UserPaperStatus.COMMITED.value());
     }
 

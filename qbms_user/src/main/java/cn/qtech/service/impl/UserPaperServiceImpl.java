@@ -88,4 +88,9 @@ public class UserPaperServiceImpl implements UserPaperService {
     public UserPaperWithBLOBs queryUserPaperById(String userPaperId) {
         return userPaperMapper.selectByPrimaryKey(userPaperId);
     }
+
+    @Override
+    public boolean changeFinishedExams(int currentStatus, int value) {
+        return userPaperMapper.changeFinishedExams(currentStatus,value) > 0;
+    }
 }

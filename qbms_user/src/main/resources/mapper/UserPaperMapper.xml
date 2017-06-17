@@ -291,6 +291,11 @@
         set status = #{status,jdbcType=INTEGER}
         where start_time = #{startTime,jdbcType=TIMESTAMP}
     </update>
+    <update id="changeFinishedExams">
+        update user_paper
+        set status = #{finishedStatus,jdbcType=INTEGER}
+        where DATE_ADD(start_time,INTERVAL total_time MINUTE) and status = currentStatus
+    </update>
     <update id="changeUserPaperStatusToCommited">
         update user_paper
         set status = #{status,jdbcType=INTEGER}

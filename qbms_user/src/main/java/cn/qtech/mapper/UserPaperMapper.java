@@ -79,4 +79,6 @@ public interface UserPaperMapper {
     int grade(@Param("userPaperId") String userPaperId, @Param("score") int score, @Param("status") int value);
 
     boolean modifyUserPaperStatusById(@Param("userPaperId") String userPaperId, @Param("status") int value);
+
+    int changeFinishedExams(@Param("currentStatus") int currentStatus, @Param("finishedStatus") int value);
 }

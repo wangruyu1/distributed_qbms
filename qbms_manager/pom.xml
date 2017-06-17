@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
-        <artifactId>distributed_qbms</artifactId>
+        <artifactId>distributed-qbms</artifactId>
         <groupId>cn.qtech</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+    <packaging>jar</packaging>
     <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>qbms_manager</artifactId>
+    <artifactId>qbms-manager</artifactId>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
 
     <dependencies>
         <dependency>
             <groupId>cn.qtech</groupId>
-            <artifactId>qbms_common</artifactId>
+            <artifactId>qbms-common</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+            <type>jar</type>
+            <!--<scope>system</scope>-->
+            <!--<systemPath>${basedir}/src/main/resources/lib</systemPath>-->
         </dependency>
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
@@ -30,12 +37,29 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <fork>true</fork>
+                    <executable>true</executable>
+                    <classifier>exec</classifier>
+                    <!--<mainClass>cn.qtech.QbmsManagerApplication</mainClass>-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -43,30 +67,47 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                    <!--<compilerArguments>-->
+                    <!--<extdirs>cn/qtech/qbms_common/1.0-SNAPSHOT</extdirs>-->
+                    <!--</compilerArguments>-->
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.mybatis.generator</groupId>
-                <artifactId>mybatis-generator-maven-plugin</artifactId>
-                <version>1.3.2</version>
-                <executions>
-                    <execution>
-                        <id>Generate MyBatis Artifacts</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <configurationFile>src/main/resources/generatorConfig.xml</configurationFile>
-                            <!--<jdbcDriver>com.mysql.jdbc.Driver</jdbcDriver>-->
-                            <!--<jdbcURL>jdbc:mysql://localhost:3306/qbms?useUnicode=true&amp;characterEncoding=utf8</jdbcURL>-->
-                            <!--<jdbcUserId>root</jdbcUserId>-->
-                            <!--<jdbcPassword>wangruyu</jdbcPassword>-->
-                            <overwrite>true</overwrite>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--<plugin>-->
+            <!--<groupId>org.mybatis.generator</groupId>-->
+            <!--<artifactId>mybatis-generator-maven-plugin</artifactId>-->
+            <!--<version>1.3.2</version>-->
+            <!--<executions>-->
+            <!--<execution>-->
+            <!--<id>Generate MyBatis Artifacts</id>-->
+            <!--<goals>-->
+            <!--<goal>generate</goal>-->
+            <!--</goals>-->
+            <!--<configuration>-->
+            <!--<configurationFile>src/main/resources/generatorConfig.xml</configurationFile>-->
+            <!--&lt;!&ndash;<jdbcDriver>com.mysql.jdbc.Driver</jdbcDriver>&ndash;&gt;-->
+            <!--&lt;!&ndash;<jdbcURL>jdbc:mysql://localhost:3306/qbms?useUnicode=true&amp;characterEncoding=utf8</jdbcURL>&ndash;&gt;-->
+            <!--&lt;!&ndash;<jdbcUserId>root</jdbcUserId>&ndash;&gt;-->
+            <!--&lt;!&ndash;<jdbcPassword>wangruyu</jdbcPassword>&ndash;&gt;-->
+            <!--<overwrite>true</overwrite>-->
+            <!--</configuration>-->
+            <!--</execution>-->
+            <!--</executions>-->
+            <!--</plugin>-->
         </plugins>
+        <!--<resources>-->
+            <!--<resource>-->
+                <!--<directory>src/main/resources/lib</directory>-->
+                <!--<targetPath>BOOT-INF/lib/</targetPath>-->
+                <!--<includes>-->
+                    <!--<include>**/*.jar</include>-->
+                <!--</includes>-->
+            <!--</resource>-->
+            <!--<resource>-->
+                <!--<directory>src/main/resources</directory>-->
+                <!--<targetPath>BOOT-INF/classes/</targetPath>-->
+            <!--</resource>-->
+        <!--</resources>-->
     </build>
 
 </project>
